@@ -78,7 +78,7 @@ const SOCIAL: { key: keyof typeof site.links; label: string }[] = [
                     </button>
                   </Magnetic>
                 </form>
-                {sent && <p className="mt-3 text-xs text-white/60">Thanks for subscribing! We'll be in touch.</p>}
+                {sent && <p className="mt-3 text-xs text-white/60">Thank you, we will notify you!</p>}
             </Reveal>
           </div>
         </div>

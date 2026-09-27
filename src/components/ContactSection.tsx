@@ -106,7 +106,7 @@ export default function ContactSection() {
             <div className="mt-4 text-center">
               <Magnetic>
                 <button type="submit" className="btn btn-primary w-full justify-center !py-3.5 sm:w-auto active:scale-95 touch-manipulation" disabled={sent || loading}>
-                  {sent ? "Message Sent ✓" : loading ? "Sending..." : "Send Message"}
+                  {sent ? "Thank You ✓" : loading ? "Sending..." : "Send Message"}
                 </button>
               </Magnetic>
             </div>
