@@ -1,26 +1,317 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-bg: #06090f;
+  --color-bg-2: #0b1220;
+  --color-bg-3: #101a2e;
+  --color-ink: #eef2ff;
+  --color-muted: #98a2b3;
+  --color-line: rgba(255, 255, 255, 0.08);
+
+  --color-gold: #f5c242;
+  --color-orange: #f5a524;
+  --color-blue: #3d8bfd;
+  --color-sky: #7cc4ff;
+  --color-teal: #5eead4;
+  --color-green: #4ade80;
+  --color-night: #a4b0f0;
+  --color-aurora: #7cf5c3;
+  --color-rose: #f7a6c8;
+  --color-ember: #ff6a3d;
+
+  --font-display: var(--font-orbitron), "Orbitron", system-ui, sans-serif;
+  --font-body: var(--font-manrope), "Manrope", system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* overflow-x: clip (not hidden) keeps wide scroll strips from widening the phone layout viewport,
+   without turning html/body into scroll containers that would break the pinned sections */
+html {
+  color-scheme: dark;
+  scroll-behavior: auto; /* desktop: Lenis drives the wheel and anchor links */
+  -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* touch devices keep native momentum scrolling (Lenis is not started there); anchor taps glide */
+@media (hover: none) {
+  html {
+    scroll-behavior: smooth;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(245, 194, 66, 0.35);
+  color: #fff;
+}
+
+/* ---- typography helpers ---- */
+.font-display {
+  font-family: var(--font-display);
+}
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+.h-display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+.lede {
+  color: var(--color-muted);
+  font-size: clamp(1.02rem, 1.1vw + 0.7rem, 1.25rem);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+/* ---- surfaces ---- */
+/* No backdrop-filter: a live blur behind the fixed nav and the panels over video was re-rendered on every
+   scroll frame. A denser tint reads the same and costs nothing. */
+.glass {
+  background: rgba(9, 14, 26, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.25rem;
+}
+.ring-glow {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 30px 80px -30px rgba(0, 0, 0, 0.8);
+}
+
+/* ---- film grain & vignette ---- */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 160px 160px;
+}
+.vignette::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(6, 9, 15, 0.75) 100%);
+}
+
+/* ---- scroll-driven helpers ---- */
+.sticky-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+}
+
+/* ---- gradient text ----
+   Split headings animate each word on its own compositing layer, and Chrome does not
+   paint a parent's background-clip:text into those layers (the text turns invisible).
+   So the gradient is exposed as --grad and re-applied on every .split-word. */
+.text-gradient-gold {
+  --grad: linear-gradient(120deg, #fff2c2 0%, #f5c242 45%, #f5a524 100%);
+}
+.text-gradient-sky {
+  --grad: linear-gradient(120deg, #e6f4ff 0%, #7cc4ff 50%, #3d8bfd 100%);
+}
+.text-gradient-aurora {
+  --grad: linear-gradient(120deg, #d9fff0 0%, #7cf5c3 50%, #5eead4 100%);
+}
+.text-gradient-ember {
+  --grad: linear-gradient(120deg, #ffe0b8 0%, #ff8a4d 50%, #ff3d3d 100%);
+}
+:is(.text-gradient-gold, .text-gradient-sky, .text-gradient-aurora, .text-gradient-ember),
+:is(.text-gradient-gold, .text-gradient-sky, .text-gradient-aurora, .text-gradient-ember) .split-word {
+  background-image: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.split-word {
+  /* room for descenders — background-clip:text only paints inside the box */
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+:is(.text-gradient-gold, .text-gradient-sky, .text-gradient-aurora, .text-gradient-ember):has(.split-word) {
+  background-image: none;
+}
+
+/* ---- buttons ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  border-radius: 999px;
+  padding: 0.95rem 1.5rem;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition:
+    transform 0.4s var(--ease-out-expo),
+    box-shadow 0.4s var(--ease-out-expo),
+    background 0.3s;
+  will-change: transform;
+}
+.btn:active {
+  transform: scale(0.97);
+}
+.btn-primary {
+  color: #1a1204;
+  background: linear-gradient(120deg, #ffe08a, #f5c242 50%, #f5a524);
+  box-shadow:
+    0 10px 30px -10px rgba(245, 194, 66, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 18px 40px -12px rgba(245, 194, 66, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+.btn-ghost {
+  color: var(--color-ink);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+}
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.09);
+  transform: translateY(-2px);
+}
+
+/* ---- sound toggle: bars bounce while sound is on ---- */
+.eq-bar {
+  animation: eq 0.8s ease-in-out infinite alternate;
+  transform-origin: bottom;
+}
+@keyframes eq {
+  from {
+    transform: scaleY(0.25);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* ---- offscreen static sections skip layout and paint until they approach the viewport (cheaper
+   scrolling on phones). Only for sections with no pinned stage, no scroll-linked child and no fixed
+   overlay — containment would trap those. ---- */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+
+/* ---- misc ---- */
+.mask-fade-x {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---- star field for the scroll-built city ----
+   Two repeating tiles of different sizes (so the pattern never visibly repeats),
+   the second twinkling on its own clock; masked to fade toward the horizon. */
+.stars {
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 100%);
+}
+.stars::before,
+.stars::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat;
+}
+.stars::before {
+  background-image:
+    radial-gradient(1.2px 1.2px at 12px 22px, #fff 50%, transparent 52%),
+    radial-gradient(1px 1px at 96px 70px, #dfe6ff 50%, transparent 52%),
+    radial-gradient(1.6px 1.6px at 170px 40px, #fff 50%, transparent 52%),
+    radial-gradient(1px 1px at 60px 150px, #fff 50%, transparent 52%),
+    radial-gradient(1.3px 1.3px at 210px 180px, #fff7e0 50%, transparent 52%),
+    radial-gradient(1px 1px at 140px 120px, #fff 50%, transparent 52%),
+    radial-gradient(0.9px 0.9px at 30px 210px, #fff 50%, transparent 52%);
+  background-size: 240px 240px;
+  opacity: 0.85;
+}
+.stars::after {
+  background-image:
+    radial-gradient(1.8px 1.8px at 50px 60px, #fff 50%, transparent 52%),
+    radial-gradient(1.1px 1.1px at 250px 30px, #cfd8ff 50%, transparent 52%),
+    radial-gradient(1.4px 1.4px at 320px 250px, #fff 50%, transparent 52%),
+    radial-gradient(1px 1px at 160px 300px, #fff 50%, transparent 52%),
+    radial-gradient(2.2px 2.2px at 290px 140px, #fff 45%, transparent 55%);
+  background-size: 370px 370px;
+  animation: twinkle 4.5s ease-in-out infinite alternate;
+}
+@keyframes twinkle {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---- soft stylised clouds drifting across the day sky ---- */
+.cloud {
+  border-radius: 999px;
+  background:
+    radial-gradient(closest-side at 30% 60%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 100%),
+    radial-gradient(closest-side at 55% 42%, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0) 100%),
+    radial-gradient(closest-side at 76% 62%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0) 100%);
+  filter: blur(6px);
+  animation-name: drift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+@keyframes drift {
+  0% {
+    transform: translate3d(-30vw, 0, 0);
+    opacity: 0;
+  }
+  12%,
+  88% {
+    opacity: var(--o, 0.8);
+  }
+  100% {
+    transform: translate3d(40vw, 0, 0);
+    opacity: 0;
+  }
 }
