@@ -7,6 +7,9 @@ export const site = {
   description:
     "Depth City is a city-building game with real depth — a living island that breathes through day and night, rival nations to outwit or outgun, a secret order in the woods, and a rocket that leaves the tower behind. Made with passion by IT engineer Shainal Badusha.",
   status: "In development · Built in Unity",
+  company: "HIZARC",
+  supportEmail: "hizarcgames@hizarc.com",
+  androidPackage: "com.hizarc.depthcity",
   creator: {
     name: "Shainal Badusha",
     role: "IT Engineer · Solo Developer",

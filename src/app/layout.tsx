@@ -17,11 +17,11 @@ const manrope = Manrope({
   display: "swap",
 });
 
-// Set NEXT_PUBLIC_SITE_URL at build time (e.g. https://depthcity.com) so social previews get absolute URLs.
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+// Absolute base for social previews and canonical links; NEXT_PUBLIC_SITE_URL overrides it (e.g. for a staging host).
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://depthcity.hizarc.com";
 
 export const metadata: Metadata = {
-  metadataBase: siteUrl ? new URL(siteUrl) : undefined,
+  metadataBase: new URL(siteUrl),
   title: `${site.name} — ${site.tagline}`,
   description: site.description,
   icons: {

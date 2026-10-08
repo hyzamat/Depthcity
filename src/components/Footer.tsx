@@ -2,7 +2,9 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import Img from "./ui/Img";
+import { LEGAL_LINKS } from "./LegalPage";
 import { Reveal, SplitWords } from "./ui/Reveal";
 import Magnetic from "./ui/Magnetic";
 import { site } from "@/content/site";
@@ -110,7 +112,14 @@ const SOCIAL: { key: keyof typeof site.links; label: string }[] = [
             })}
           </ul>
         </div>
-        <div className="mt-8 flex flex-col gap-2 text-xs text-white/40 md:flex-row md:items-center md:justify-between">
+        <nav className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-xs" aria-label="Help and legal">
+          {LEGAL_LINKS.map((l) => (
+            <Link key={l.href} href={l.href} className="text-white/60 underline-offset-4 transition hover:text-white hover:underline">
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+        <div className="mt-4 flex flex-col gap-2 text-xs text-white/40 md:flex-row md:items-center md:justify-between">
           <span>© {new Date().getFullYear()} {site.name}. Made with passion by {site.creator.name}.</span>
           <span>Built in Unity. All screenshots are real, captured in-engine.</span>
         </div>

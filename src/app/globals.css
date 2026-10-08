@@ -315,3 +315,75 @@ body {
     opacity: 0;
   }
 }
+
+/* ---- legal & help pages (Privacy, Support, Delete data): plain readable text ---- */
+.legal {
+  color: rgba(238, 242, 255, 0.86);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+.legal h2 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #fff;
+  margin: 2.5rem 0 0.75rem;
+}
+.legal h3 {
+  font-weight: 700;
+  color: #fff;
+  margin: 1.5rem 0 0.4rem;
+}
+.legal p {
+  margin: 0.75rem 0;
+}
+.legal ul,
+.legal ol {
+  margin: 0.75rem 0;
+  padding-left: 1.25rem;
+}
+.legal ul {
+  list-style: disc;
+}
+.legal ol {
+  list-style: decimal;
+}
+.legal li {
+  margin: 0.35rem 0;
+}
+.legal a:not(.btn) {
+  color: var(--color-sky);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.legal strong {
+  color: #fff;
+}
+.legal .summary {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+}
+.legal .table-wrap {
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+.legal table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+.legal th,
+.legal td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.6rem 0.7rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.legal th {
+  color: #fff;
+  font-weight: 600;
+}
