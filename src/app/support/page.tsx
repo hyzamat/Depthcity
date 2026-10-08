@@ -31,7 +31,9 @@ export default function SupportPage() {
         <li>Your phone model (for example, Samsung Galaxy S21) and Android or iOS version.</li>
         <li>The game version (shown in the corner of the title screen, for example v0.1.3).</li>
         <li>What you were doing when the problem happened, and a screenshot or screen recording if you can.</li>
-        <li>Your Player ID if the game shows one (only needed for cloud backup or data questions).</li>
+        <li>
+          For upload or data questions, your Player ID: Settings ▸ Interface ▸ Privacy &amp; Support ▸ <em>Copy</em>.
+        </li>
       </ul>
 
       <h2>Common questions</h2>
@@ -39,12 +41,16 @@ export default function SupportPage() {
       <h3>Where are my cities saved?</h3>
       <p>
         On your phone, in the game&apos;s private storage. <strong>Uninstalling the game or clearing its storage deletes your
-        cities</strong>, so to update the game, install the new version over the old one instead of uninstalling first.
+        cities</strong>, so to update the game, install the new version over the old one instead of uninstalling first. To keep an
+        online copy, upload the city (next question).
       </p>
 
       <h3>Can I move my city to a new phone?</h3>
       <p>
-        Cloud backup is coming in an update. Until it arrives, cities stay on the phone where they were built.
+        Yes. On the old phone, open Settings ▸ Saves ▸ <strong>Upload</strong>. The game gives the city a City ID (for example
+        K7Q2M9-3) and copies it for you. On the new phone, open Settings ▸ Saves ▸ <strong>Download</strong>, enter the ID, and open
+        the city from the Cities tab. Uploaded cities are public: anyone who has the City ID can download a copy, so share it only
+        with people you want to have your city.
       </p>
 
       <h3>The game is slow or my phone gets warm.</h3>
@@ -68,8 +74,8 @@ export default function SupportPage() {
 
       <h3>Does the game need internet?</h3>
       <p>
-        No. The game works fully offline. When you are online it signs in anonymously so online features such as cloud backup can work
-        later. See the <Link href="/privacy/">Privacy Policy</Link>.
+        No. The game works fully offline. Only uploading and downloading cities need a connection. When you are online the game
+        signs in anonymously, so the cities you upload stay yours. See the <Link href="/privacy/">Privacy Policy</Link>.
       </p>
 
       <h3>Are there ads or in-app purchases?</h3>

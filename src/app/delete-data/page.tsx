@@ -17,7 +17,7 @@ export default function DeleteDataPage() {
       <div className="summary">
         <p>
           {site.name} by {site.company}. You can delete the data on your phone yourself at any time. To delete your online data
-          (anonymous account and cloud backups), email us and we delete it within 30 days. You do not need an account or a password.
+          (anonymous account and uploaded cities), email us and we delete it within 30 days. You do not need an account or a password.
         </p>
       </div>
 
@@ -38,7 +38,10 @@ export default function DeleteDataPage() {
         <li>
           Email <a href={mail}>{site.supportEmail}</a> with the subject <strong>&quot;{subject}&quot;</strong>.
         </li>
-        <li>If the game&apos;s settings show a Player ID, copy it into the email. It helps us find the right account.</li>
+        <li>
+          Paste your Player ID into the email (Settings ▸ Interface ▸ Privacy &amp; Support ▸ <em>Copy</em>). It tells us which
+          account is yours. Without it, list the City IDs you uploaded.
+        </li>
         <li>We delete the data and reply to confirm within 30 days.</li>
       </ol>
       <p>
@@ -62,8 +65,11 @@ export default function DeleteDataPage() {
               <td>Deleted</td>
             </tr>
             <tr>
-              <td>Cloud backups of your cities (Unity Cloud Save)</td>
-              <td>Deleted</td>
+              <td>Cities you uploaded and your share code (Unity Cloud Save)</td>
+              <td>
+                Deleted, so their City IDs stop working. Copies that other players already downloaded stay on their devices; we cannot
+                reach those.
+              </td>
             </tr>
             <tr>
               <td>Your website &quot;Notify me&quot; email and contact-form messages</td>

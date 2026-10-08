@@ -19,9 +19,9 @@ export default function PrivacyPage() {
         <p>
           <strong>In short:</strong> the {site.name} game does not ask for your name, email address, phone number, location,
           photos, contacts, camera or microphone. It shows no ads and has no in-app purchases. Your city is saved on your device.
-          When you are online, the game uses Unity Gaming Services to give you an anonymous player ID and, if you choose to back up
-          your city, to store that backup. Unity&apos;s engine sends crash and performance diagnostics so we can fix problems. On this
-          website, we only receive what you type into our forms. We never sell your data.
+          When you are online, the game uses Unity Gaming Services to give you an anonymous player ID. If you choose to upload a city,
+          it is stored online, and anyone who has its City ID can download a copy. Unity&apos;s engine sends crash and performance
+          diagnostics so we can fix problems. On this website, we only receive what you type into our forms. We never sell your data.
         </p>
       </div>
 
@@ -47,19 +47,24 @@ export default function PrivacyPage() {
               <td>Your cities and settings (buildings, city name, progress, preferences)</td>
               <td>While you play</td>
               <td>So you can continue your game</td>
-              <td>On your device only, unless you back it up (below)</td>
+              <td>On your device only, unless you upload it (below)</td>
             </tr>
             <tr>
               <td>Anonymous player ID (a random code from Unity Authentication, not linked to your name or email)</td>
               <td>Automatically, a few seconds after the game starts, when the device is online</td>
-              <td>To identify your game&apos;s online account so your cloud backups belong to you</td>
+              <td>To identify your game&apos;s online account so the cities you upload belong to you</td>
               <td>Unity Gaming Services (our service provider); a session token stays on your device</td>
             </tr>
             <tr>
-              <td>Cloud backup of a city save (the game data above, linked to your player ID)</td>
-              <td>Only when you choose to back up or upload a city</td>
-              <td>So you can restore your city on a new or reset phone</td>
-              <td>Unity Cloud Save (our service provider)</td>
+              <td>
+                Uploaded cities: the city&apos;s save data, its name, a picture of the city, and a share code linked to your player ID
+              </td>
+              <td>Only when you tap Upload (Settings ▸ Saves)</td>
+              <td>So you can back up your city, move it to another device, or share it with friends</td>
+              <td>
+                Unity Cloud Save (our service provider). <strong>Uploaded cities are public:</strong> any player who has the City ID can
+                download a copy.
+              </td>
             </tr>
             <tr>
               <td>Crash logs, app diagnostics, performance data and device identifiers (device model, OS version, app version, error traces)</td>
@@ -101,7 +106,7 @@ export default function PrivacyPage() {
 
       <h2>4. How we use data</h2>
       <ul>
-        <li>To run the game&apos;s online features (the anonymous account and cloud backups).</li>
+        <li>To run the game&apos;s online features (the anonymous account, and uploading and downloading cities).</li>
         <li>To detect, investigate and fix crashes, freezes and performance problems.</li>
         <li>To answer your messages and to send the launch news you asked for.</li>
       </ul>
@@ -118,6 +123,11 @@ export default function PrivacyPage() {
         data if the law requires it, or to protect the rights and safety of our users or ourselves. We do not share data with
         advertisers or data brokers.
       </p>
+      <p>
+        <strong>Other players:</strong> when you upload a city, any player who has its City ID can download a copy of it, including its
+        name and picture. Share a City ID only with people you want to have your city, and do not put personal information in a
+        city&apos;s name.
+      </p>
 
       <h2>6. Security</h2>
       <p>
@@ -131,8 +141,9 @@ export default function PrivacyPage() {
           <strong>On your device:</strong> until you delete the city in the game, clear the app&apos;s data, or uninstall the game.
         </li>
         <li>
-          <strong>Anonymous account and cloud backups:</strong> as long as needed to provide the backup feature, or until you ask us to
-          delete them.
+          <strong>Anonymous account and uploaded cities:</strong> until you ask us to delete them. Uploading the same city again
+          replaces the earlier upload. Copies that other players have already downloaded stay on their devices, and we cannot delete
+          those.
         </li>
         <li>
           <strong>Diagnostics:</strong> kept by Unity for the period described in Unity&apos;s privacy policy.
@@ -150,11 +161,14 @@ export default function PrivacyPage() {
           sent the next time you are online.
         </li>
         <li>
+          <strong>Don&apos;t upload:</strong> if you never tap Upload, your cities stay only on your device.
+        </li>
+        <li>
           <strong>Delete game data on your phone:</strong> delete a city from the game&apos;s city list, or clear the app&apos;s storage
           or uninstall the game.
         </li>
         <li>
-          <strong>Delete your online data</strong> (anonymous account, cloud backups, website form entries): follow the steps on{" "}
+          <strong>Delete your online data</strong> (anonymous account, uploaded cities, website form entries): follow the steps on{" "}
           <Link href="/delete-data/">Delete my data</Link>, or email <a href={mail}>{site.supportEmail}</a>. We delete it within 30 days
           and confirm by email.
         </li>
