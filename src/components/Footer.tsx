@@ -7,7 +7,7 @@ import Img from "./ui/Img";
 import { LEGAL_LINKS } from "./LegalPage";
 import { Reveal, SplitWords } from "./ui/Reveal";
 import Magnetic from "./ui/Magnetic";
-import { site } from "@/content/site";
+import { seo, site } from "@/content/site";
 
 const SOCIAL: { key: keyof typeof site.links; label: string }[] = [
   { key: "youtube", label: "YouTube" },
@@ -120,6 +120,14 @@ const SOCIAL: { key: keyof typeof site.links; label: string }[] = [
             </Link>
           ))}
         </nav>
+        <p className="mt-6 max-w-3xl text-xs leading-relaxed text-white/55">
+          {site.name} (DepthCity) is an island city-building game by{" "}
+          <a href={seo.studio.url} className="text-white/75 underline-offset-4 hover:text-white hover:underline">
+            {seo.studio.name}
+          </a>
+          , a game studio in {seo.studio.place}. Build a city, run its economy, live as the Mayor and defend it from rival
+          nations — coming soon to Android, iPhone, iPad and Windows.
+        </p>
         <div className="mt-4 flex flex-col gap-2 text-xs text-white/40 md:flex-row md:items-center md:justify-between">
           <span>© {new Date().getFullYear()} {site.company}. {site.name}. Made with passion by {site.creator.name}.</span>
           <span>Made with Unity. Every clip and still is recorded in the game.</span>

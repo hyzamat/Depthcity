@@ -34,6 +34,35 @@ export const site = {
   },
 };
 
+/**
+ * Search: the game's name is searched as "DEPTH CITY", "Depth City" and "depthcity" (the domain), so all three
+ * spellings appear in the title/description, the structured data and the visible footer line.
+ */
+export const seo = {
+  url: "https://depthcity.hizarc.com",
+  title: "DEPTH CITY (DepthCity): Build & Defend | HIZARC Games",
+  description:
+    "DEPTH CITY (DepthCity) by HIZARC Games: build an island city, run its economy, live as the Mayor and defend it from rival nations. Coming to Android, iOS and Windows.",
+  alternateNames: ["DepthCity", "Depth City", "DEPTH CITY: Build & Defend"],
+  keywords: [
+    "DEPTH CITY", "DepthCity", "Depth City game", "Depth City: Build & Defend", "HIZARC", "HIZARC Games",
+    "city builder", "city building game", "island city builder", "city builder mobile", "strategy", "simulation",
+    "Android", "iOS", "Windows",
+  ],
+  /** the studio — the same identity hizarc.com publishes, so search engines join the game to the company */
+  studio: {
+    id: "https://hizarc.com/#organization",
+    name: "HIZARC Games",
+    url: "https://hizarc.com/",
+    logo: "https://hizarc.com/logo-600.png",
+    place: "Kozhikode (Calicut), Kerala, India",
+  },
+  /** Google Search Console → "HTML tag" verification code (the content="…" value). Leave empty until you have it. */
+  googleSiteVerification: "",
+  /** Bing Webmaster Tools → "HTML Meta Tag" verification code (optional). */
+  bingSiteVerification: "",
+};
+
 export const hero = {
   image: "hero-skyline",
   alt: "DEPTH CITY skyline at noon — the Skyreach Tower rising over an island city",

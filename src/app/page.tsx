@@ -1,4 +1,7 @@
+import type { Metadata } from "next";
 import SmoothScroll from "@/components/SmoothScroll";
+import StructuredData from "@/components/StructuredData";
+import { seo, site } from "@/content/site";
 import SoundProvider from "@/components/sound/SoundProvider";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
@@ -21,9 +24,24 @@ import Creator from "@/components/Creator";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
+// Open Graph objects replace (not merge with) the layout's, so the home page restates the whole set with its URL.
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+  openGraph: {
+    url: "/",
+    title: seo.title,
+    description: seo.description,
+    images: [{ url: "/brand/og.jpg", width: 1200, height: 630, alt: `${site.name} — ${site.motto}` }],
+    type: "website",
+    siteName: site.name,
+    locale: "en_US",
+  },
+};
+
 export default function Home() {
   return (
     <main className="relative">
+      <StructuredData />
       <SmoothScroll />
       <SoundProvider />
       <Nav />

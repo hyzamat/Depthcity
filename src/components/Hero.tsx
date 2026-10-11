@@ -6,7 +6,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Img from "./ui/Img";
 import Magnetic from "./ui/Magnetic";
 import { pad } from "./ui/scrollRange";
-import { hero, site } from "@/content/site";
+import { hero, seo, site } from "@/content/site";
 import TrailerButton from "./TrailerButton";
 import SoundZone from "./sound/SoundZone";
 import { useSoundEnabled } from "./sound/SoundProvider";
@@ -61,9 +61,13 @@ export default function Hero() {
         </div>
 
         <h1 className="intro mt-5" style={{ "--d": "0.35s" } as CSSProperties}>
+          {/* the wordmark is the visible heading; this is the same name as text for search engines and screen readers */}
+          <span className="sr-only">
+            {site.name}: {site.tagline} — an island city builder game by {seo.studio.name}
+          </span>
           <img
             src="/brand/wordmark-1200.webp"
-            alt={site.name}
+            alt=""
             width={1200}
             height={220}
             className="w-[min(80vw,600px)] drop-shadow-[0_10px_40px_rgba(0,0,0,0.6)]"
