@@ -275,15 +275,6 @@
    "at": 2.5
   }
  ],
- "scrub": [
-  {
-   "name": "city-dusk",
-   "src": "A14_sunset_timelapse",
-   "in": 0.0,
-   "dur": 4.4,
-   "tallX": 0.5
-  }
- ],
  "play": [
   {
    "name": "play-build",
@@ -325,5 +316,6 @@
  "trailer": {
   "src": "E:/DEPTHCITY Trailer/DEPTHCITY_Trailer1_Official_4K.mp4",
   "note": "official-1080.mp4: 2-pass x264 4500k + AAC 160k; official-720.mp4: CRF 24 + AAC 128k; both +faststart. official-poster.webp = hero-skyline-1600.webp"
- }
+ },
+ "_daynight": "public/media/daynight/city-build-* is the original Day & Night scrub (2026-09-14 capture, construction + morning to night). The user asked to keep that section as it was, so it is not re-cut from the trailer shots."
 }

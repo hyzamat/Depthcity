@@ -5,34 +5,35 @@ import { motion, useInView, useMotionValueEvent, useScroll, useTransform } from 
 import { pad } from "./ui/scrollRange";
 import { sound } from "@/lib/sound/engine";
 import { useSoundZone } from "./sound/SoundZone";
-import { useDwell } from "./ui/useDwell";
 
 /**
- * Scroll-scrubbed footage recorded in the real game (DEPTH CITY 1.0, trailer shoot 2026-10-10): a locked
- * camera over downtown while the day cycle runs from sunset to full night and the skyline switches on.
- * The phase label follows the frame on screen.
+ * Scroll-scrubbed footage recorded in-engine from the real game: the city's own
+ * ConstructionAnimator rebuilds the downtown (excavation → crane → frame → pop-in),
+ * then DayNightLighting turns the finished city from morning to a moonlit night.
+ * The in-game clock and labels follow the exact hour of the frame on screen.
  */
-const PHASES = [
-  { until: 0.16, label: "Sunset", note: "Rose light over the island, the sea going pink." },
-  { until: 0.46, label: "Dusk", note: "The sky runs violet. The first windows light up." },
-  { until: 0.74, label: "Blue hour", note: "Towers glow against a deep blue sky." },
-  { until: 1.01, label: "Night", note: "Every tower lit against the night sky." },
+const FRAMES = [
+  { label: "Morning", note: "Lavender dawn, long shadows." },
+  { label: "Noon", note: "A clean, bright day. The sun stays near-white." },
+  { label: "Golden hour", note: "Peach sun, rose sky, the sea catches fire." },
+  { label: "Dusk", note: "Pink-purple. The first windows light up." },
+  { label: "Moonlit night", note: "Periwinkle moon. Every curb line glows." },
 ];
 
-/** Recording metadata — A14_sunset_timelapse, 0 → 4.4 s at 30 fps. */
-const CLIP = { fps: 30, frames: 132 };
+/** Recording metadata (public/media/daynight/meta.json) — frame layout of every video. */
+const CLIP = { fps: 30, frames: 180, dayStart: 108, dayFrames: 72, dayFrom: 9, dayTo: 23.6 };
 const MEDIA = "/media/daynight";
-const FILE = "city-dusk";
 
 /**
- * The footage is recorded with a locked camera (so every frame compresses to almost nothing and the city stays
- * razor sharp); a slow push-in happens here instead, as a final/initial scale ratio.
+ * The footage is recorded with a locked camera (so every frame compresses to almost nothing
+ * and the city stays razor sharp); the slow push-in happens here instead. Values are the
+ * in-engine orthographic end/start ratio the shot was framed with.
  */
-const PUSH_IN = { wide: 0.9, tall: 0.9 };
+const PUSH_IN = { wide: 12.5 / 15, tall: 16.5 / 20 };
 
 /**
  * Wide recordings by pixel width. Scrubbing decodes a frame on every scroll step, so the 1080p clip is used
- * up to a generous 1.6x stretch and 1440p only on very large screens — smooth scrolling beats the last pixel.
+ * up to a generous 1.35x stretch and 1440p only on very large screens — smooth scrolling beats the last pixel.
  */
 const WIDE_TIERS = [1920, 2560] as const;
 const TIER_FILE: Record<(typeof WIDE_TIERS)[number], string> = { 1920: "1080", 2560: "1440" };
@@ -44,33 +45,40 @@ function pickVariant(): Variant {
   const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
   const slow = !!conn && (conn.saveData || /(^|-)(2g|3g)$/.test(conn.effectiveType ?? ""));
   if (window.matchMedia("(max-aspect-ratio: 4/5)").matches) {
-    // Phones: 1080×1920 (5.3 MB) for sharpness, 720×1280 (2 MB) when the connection is known or measured slow.
-    return slow ? { kind: "tall", file: `${FILE}-tall-720.mp4` } : { kind: "tall", file: `${FILE}-tall.mp4`, alt: `${FILE}-tall-720.mp4` };
+    // Phones: 1080×2160 (9.9 MB) for sharpness, 720×1440 (3.8 MB) when the connection is known or measured slow.
+    return slow ? { kind: "tall", file: "city-build-tall-720.mp4" } : { kind: "tall", file: "city-build-tall.mp4", alt: "city-build-tall-720.mp4" };
   }
   const dpr = Math.min(window.devicePixelRatio || 1, 3);
   // Device pixels the 16:9 clip must cover (object-cover) at the deepest point of the push-in.
   const need = (Math.max(window.innerWidth, (window.innerHeight * 16) / 9) * dpr) / PUSH_IN.wide;
-  let i = WIDE_TIERS.findIndex((w) => need <= w * 1.6);
+  let i = WIDE_TIERS.findIndex((w) => need <= w * 1.35);
   if (i < 0) i = WIDE_TIERS.length - 1;
   if (slow) i = Math.max(0, i - 1);
-  const wide = (j: number) => `${FILE}-wide-${TIER_FILE[WIDE_TIERS[j]]}.mp4`;
+  const wide = (j: number) => `city-build-wide-${TIER_FILE[WIDE_TIERS[j]]}.mp4`;
   return { kind: "wide", file: wide(i), alt: i > 0 ? wide(i - 1) : undefined };
 }
 
-function phaseAt(p: number) {
-  return Math.max(0, PHASES.findIndex((ph) => p < ph.until));
+function hourAt(p: number) {
+  const frame = Math.min(CLIP.frames - 1, Math.max(0, p * (CLIP.frames - 1)));
+  if (frame < CLIP.dayStart) return CLIP.dayFrom;
+  const t = Math.min(1, (frame - CLIP.dayStart) / (CLIP.dayFrames - 1));
+  return CLIP.dayFrom + t * (CLIP.dayTo - CLIP.dayFrom);
+}
+
+function labelIndex(hour: number) {
+  if (hour < 11) return 0;
+  if (hour < 17.5) return 1;
+  if (hour < 20) return 2;
+  if (hour < 21.5) return 3;
+  return 4;
 }
 
 export default function DayNight() {
   const ref = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const target = useRef(0);
-  // The clip is 5-7 MB: start fetching two screens early so a phone on slow Wi-Fi has it before the section
-  // arrives, and keep it (latched). The <video> itself, and its decoder, only lives while the section is near.
-  const approaching = useDwell(useInView(ref, { margin: "200% 0px 200% 0px" }));
-  const [near, setNear] = useState(false);
-  if (approaching && !near) setNear(true); // latch: once fetched, the clip stays
-  const live = useInView(ref, { margin: "150% 0px 150% 0px" });
+  // The clip is ~10 MB: start fetching three screens early so a phone on slow Wi-Fi has it before the section arrives.
+  const near = useInView(ref, { margin: "300% 0px 300% 0px" });
   const inView = useInView(ref, { margin: "10% 0px 10% 0px" });
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
 
@@ -177,15 +185,8 @@ export default function DayNight() {
         note(`play refused: ${e?.name ?? e} — waiting for a touch`);
       });
   }, [note]);
-  // Leaving the neighbourhood drops the <video>; a fresh one comes back with the same (blob) source.
   useEffect(() => {
-    if (live) return;
-    primed.current = false;
-    readyRef.current = false;
-    setReady(false);
-  }, [live]);
-  useEffect(() => {
-    if (!src || !live) return;
+    if (!src) return;
     const v = videoRef.current;
     if (v && v.readyState >= 1) prime();
     const onTouch = () => prime();
@@ -203,7 +204,7 @@ export default function DayNight() {
       window.removeEventListener("pointerdown", onTouch);
       window.clearTimeout(bail);
     };
-  }, [src, live, file, prime, note]);
+  }, [src, file, prime, note]);
 
   // Scrub: follow the scroll position with a little easing, one seek at a time.
   useMotionValueEvent(scrollYProgress, "change", (v) => {
@@ -237,24 +238,26 @@ export default function DayNight() {
     raf = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(raf);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [src, inView, live]);
+  }, [src, inView]);
 
-  // The sky dial moves every scroll frame, so it writes straight to the DOM; React only re-renders when the
-  // phase label actually changes (four times over the whole section).
-  const dialRef = useRef<HTMLDivElement>(null);
+  // The clock ticks every scroll frame, so it writes straight to the DOM; React only re-renders when the
+  // time-of-day label actually changes (five times over the whole section).
+  const clockRef = useRef<HTMLDivElement>(null);
   const [idx, setIdx] = useState(0);
   const idxRef = useRef(0);
   useMotionValueEvent(scrollYProgress, "change", (v) => {
-    const p = Math.min(1, Math.max(0, v));
-    if (dialRef.current) dialRef.current.style.left = `${p * 100}%`;
-    const i = phaseAt(p);
+    const h = hourAt(v);
+    const hh = Math.floor(h);
+    const mm = Math.floor((h - hh) * 60);
+    if (clockRef.current) clockRef.current.textContent = `${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}`;
+    const i = labelIndex(h);
     if (i !== idxRef.current) {
       idxRef.current = i;
       setIdx(i);
-      if (inView) sound.play("chime", { gain: 0.16, rate: [1.3, 1.0, 0.85, 0.7][i], reverb: 0.55 });
+      if (inView) sound.play("chime", { gain: 0.16, rate: [1.6, 1.3, 1.0, 0.85, 0.7][i], reverb: 0.55 });
     }
   });
-  useSoundZone(inView, idx >= 2 ? "city-night" : "city-day");
+  useSoundZone(inView, idx >= 3 ? "city-night" : idx === 2 ? "street" : "city-day");
 
   // Night deepens the scrim a touch so the copy stays crisp over the lit city.
   const nightScrim = useTransform(scrollYProgress, ...pad([0.82, 1], [0, 0.08]));
@@ -270,7 +273,7 @@ export default function DayNight() {
   });
   const stageScale = useTransform(() => introScale.get() * pushIn.get());
 
-  const poster = variant ? `${MEDIA}/${FILE}-${variant.kind}-poster.webp` : undefined;
+  const poster = variant ? `${MEDIA}/city-build-${variant.kind}-poster.webp` : undefined;
 
   return (
     <section ref={ref} id="daynight" className="relative scroll-mt-24" style={{ height: "620svh" }}>
@@ -278,16 +281,16 @@ export default function DayNight() {
         <motion.div className="absolute inset-0 will-change-transform" style={{ scale: stageScale }}>
           {/* poster first (instant paint), real footage fades in on top once it can seek */}
           <picture>
-            <source media="(max-aspect-ratio: 4/5)" srcSet={`${MEDIA}/${FILE}-tall-poster.webp`} />
+            <source media="(max-aspect-ratio: 4/5)" srcSet={`${MEDIA}/city-build-tall-poster.webp`} />
             <img
-              src={`${MEDIA}/${FILE}-wide-poster.webp`}
-              alt="DEPTH CITY downtown at sunset, recorded in the game"
+              src={`${MEDIA}/city-build-wide-poster.webp`}
+              alt="Depth City downtown under construction, recorded in-engine"
               className="absolute inset-0 h-full w-full object-cover"
               loading="lazy"
               decoding="async"
             />
           </picture>
-          {src && live && (
+          {src && (
             <video
               ref={videoRef}
               key={src}
@@ -297,7 +300,7 @@ export default function DayNight() {
               playsInline
               preload="auto"
               disablePictureInPicture
-              aria-label="The city turns from sunset to night and the skyline lights up — recorded in the game"
+              aria-label="The city builds itself, then turns from morning to a moonlit night — recorded in the game"
               className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${ready ? "opacity-100" : "opacity-0"}`}
               onLoadedMetadata={() => {
                 note("loadedmetadata");
@@ -340,27 +343,24 @@ export default function DayNight() {
             <div className="max-w-2xl">
               <p className="eyebrow mb-3">A city that keeps time</p>
               <h2 className="h-display text-[clamp(1.9rem,3.8vw,3.5rem)] text-white drop-shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
-                Then the sun goes down, and the skyline switches on.
+                Every day has a morning, a golden hour, and a moonlit night.
               </h2>
               <p className="lede mt-4 max-w-lg !text-white/75">
-                A full day-and-night cycle runs over the island. Scroll to run the clock: rose sunset, violet dusk, a deep
-                blue hour, and a city lit tower by tower. Filmed in the game with a locked camera.
+                The sun arcs across the sky, the moon takes over where it set. Ambient light carries the mood — lavender
+                at dawn, pink-purple at dusk, navy after dark. Nothing snaps; it just turns.
               </p>
             </div>
 
-            <div className="glass flex w-full flex-col gap-3 self-start rounded-2xl px-5 py-4 sm:w-72 md:self-auto">
-              <div className="flex items-center justify-between font-display text-[10px] tracking-[0.3em] text-white/60">
-                <span>SUNSET</span>
-                <span>NIGHT</span>
+            <div className="glass flex w-full items-center gap-4 self-start rounded-2xl px-5 py-4 sm:w-auto sm:gap-5 md:self-auto">
+              <div className="shrink-0">
+                <div className="whitespace-nowrap font-display text-[10px] tracking-[0.3em] text-white/60">IN-GAME CLOCK</div>
+                <div className="font-display text-4xl font-bold tabular-nums text-white md:text-5xl"><span ref={clockRef}>09:00</span></div>
               </div>
-              {/* sky dial: the marker follows the frame on screen */}
-              <div className="relative h-1.5 rounded-full bg-[linear-gradient(90deg,#f6b3a8,#b98bd6_35%,#3b4fa8_65%,#0d1640)]">
-                <div ref={dialRef} className="absolute top-1/2 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-gold shadow-[0_0_14px_rgba(245,194,66,0.8)]" style={{ left: "0%" }} />
-              </div>
-              <div className="relative h-11">
+              <div className="h-12 w-px shrink-0 bg-white/15" />
+              <div className="relative h-12 min-w-0 flex-1 sm:w-44 sm:flex-none">
                 <motion.div key={idx} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-                  <div className="font-display text-sm font-bold tracking-wider text-gold">{PHASES[idx].label.toUpperCase()}</div>
-                  <div className="mt-1 text-xs leading-snug text-white/70">{PHASES[idx].note}</div>
+                  <div className="font-display text-sm font-bold tracking-wider text-gold">{FRAMES[idx].label.toUpperCase()}</div>
+                  <div className="mt-1 text-xs leading-snug text-white/70">{FRAMES[idx].note}</div>
                 </motion.div>
               </div>
             </div>
