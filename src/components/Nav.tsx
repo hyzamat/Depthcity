@@ -9,12 +9,12 @@ import { sound } from "@/lib/sound/engine";
 
 const LINKS = [
   { href: "#city", label: "City" },
-  { href: "#daynight", label: "Day & Night" },
-  { href: "#street", label: "Street" },
-  { href: "#wild", label: "Wild" },
+  { href: "#play", label: "Play" },
+  { href: "#seasons", label: "Seasons" },
+  { href: "#mayor", label: "Mayor" },
+  { href: "#events", label: "Events" },
+  { href: "#disasters", label: "Disasters" },
   { href: "#war", label: "War" },
-  { href: "#space", label: "Space" },
-  { href: "#secrets", label: "Secrets" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -47,8 +47,12 @@ export default function Nav() {
           }`}
         >
           <a href="#top" className="flex items-center gap-3" aria-label={site.name}>
-            <img src="/brand/mark-192.png" alt="" className="h-9 w-9 md:h-10 md:w-10" />
-            <img src="/brand/wordmark-1200.png" alt={site.name} className="hidden h-5 md:block" />
+            <img src="/brand/mark-192.webp" alt="" width={192} height={192} className="h-9 w-9 md:h-10 md:w-10" />
+            {/* the wordmark is desktop-only: phones get a 1-pixel placeholder instead of downloading it */}
+            <picture>
+              <source media="(min-width: 768px)" srcSet="/brand/wordmark-600.webp" />
+              <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt={site.name} width={600} height={110} className="hidden h-5 w-auto md:block" />
+            </picture>
           </a>
 
           <nav className="hidden items-center gap-1 lg:flex" aria-label="Sections">
@@ -66,7 +70,7 @@ export default function Nav() {
           <div className="flex items-center gap-2">
             <SoundToggle />
             <a href="#follow" className="btn btn-primary hidden !px-5 !py-2.5 md:inline-flex active:scale-95 touch-manipulation">
-              Wishlist
+              Get notified
             </a>
             <button
               onClick={() => {
@@ -116,7 +120,7 @@ export default function Nav() {
               ))}
             </ul>
             <a href="#follow" onClick={() => setOpen(false)} className="btn btn-primary mt-8 justify-center">
-              Wishlist · Coming soon
+              Get notified · Coming soon
             </a>
           </motion.div>
         )}

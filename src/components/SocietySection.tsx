@@ -2,22 +2,20 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import Img from "./ui/Img";
 import { Reveal } from "./ui/Reveal";
 import SoundZone from "./sound/SoundZone";
 
 /**
- * The secret society — deliberately quieter than every other section.
- * Grain, low contrast, a slow candle-coloured glow that follows the scroll.
+ * The secret society — deliberately quieter than every other section, and the only one without footage:
+ * the robed order is something for players to find. A slow candle-coloured glow follows the scroll.
  */
 export default function SocietySection() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const glowY = useTransform(scrollYProgress, [0, 1], ["-10%", "40%"]);
-  const ritualY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
 
   return (
-    <section ref={ref} id="secrets" className="relative overflow-hidden bg-[#04060c] py-28 md:py-44 scroll-mt-24">
+    <section ref={ref} id="secrets" className="relative overflow-hidden bg-[#04060c] py-24 md:py-36 scroll-mt-24">
       <SoundZone zone="forest-night" />
       <motion.div
         className="pointer-events-none absolute left-1/2 top-0 h-[70vh] w-[90vw] -translate-x-1/2 rounded-full"
@@ -38,36 +36,27 @@ export default function SocietySection() {
           </Reveal>
         </div>
 
-        <div className="mt-16 grid gap-4 md:grid-cols-12">
-          <Reveal className="relative overflow-hidden rounded-3xl md:col-span-7" amount={0.25}>
-            <motion.div style={{ y: ritualY }} className="aspect-[16/10] will-change-transform md:aspect-[4/3]">
-              <Img name="society-ritual" alt="Robed figures in a circle around a bonfire in a forest clearing at night" className="h-[116%] w-full object-cover" sizes="(min-width: 768px) 58vw, 100vw" />
-            </motion.div>
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-6 pt-20">
-              <div className="font-display text-[10px] tracking-[0.3em] text-white/50">FOREST RITUAL · PERSISTENT</div>
-              <div className="mt-2 max-w-md text-sm text-white/70">The circle stays as long as the clearing does. Build into it, or cut the ring open, and it melts away.</div>
-            </div>
+        {/* No pictures on purpose: they are for players to find. */}
+        <div className="mx-auto mt-14 grid max-w-5xl gap-4 md:grid-cols-3">
+          <Reveal className="card relative overflow-hidden p-6" amount={0.4}>
+            <div className="font-display text-[10px] tracking-[0.3em] text-white/45">FOREST RITUAL · PERSISTENT</div>
+            <p className="mt-3 text-sm leading-relaxed text-white/70">
+              The circle stays as long as the clearing does. Build into it, or cut the ring open, and it melts away.
+            </p>
           </Reveal>
-
-          <div className="grid gap-4 md:col-span-5">
-            <Reveal className="relative overflow-hidden rounded-3xl" amount={0.25} delay={1}>
-              <div className="aspect-[16/10]">
-                <Img name="society-gathering" alt="Masked figures gathered around a candle beside the town hall after dark" className="h-full w-full object-cover" sizes="(min-width: 768px) 40vw, 100vw" />
-              </div>
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-5 pt-16">
-                <div className="font-display text-[10px] tracking-[0.3em] text-white/50">BACK-ALLEY GATHERING · NIGHT ONLY</div>
-                <div className="mt-2 text-sm text-white/70">Figures materialise beside a building, stand around a candle for half a minute, then vanish one by one.</div>
-              </div>
-            </Reveal>
-
-            <Reveal className="card relative overflow-hidden p-6" amount={0.4} delay={2}>
-              <div className="font-display text-[10px] tracking-[0.3em] text-white/40">IN-GAME NOTIFICATION</div>
-              <blockquote className="mt-3 font-display text-base leading-relaxed text-white/85 md:text-lg">
-                “Masked figures were seen gathering near Town Hall after dark…”
-              </blockquote>
-              <p className="mt-3 text-xs text-white/45">Pure mystery set dressing — they never do anything. Probably.</p>
-            </Reveal>
-          </div>
+          <Reveal className="card relative overflow-hidden p-6" amount={0.4} delay={1}>
+            <div className="font-display text-[10px] tracking-[0.3em] text-white/45">BACK-ALLEY GATHERING · NIGHT ONLY</div>
+            <p className="mt-3 text-sm leading-relaxed text-white/70">
+              Figures appear beside a building after dark, stand around a candle for half a minute, then vanish one by one.
+            </p>
+          </Reveal>
+          <Reveal className="card relative overflow-hidden p-6" amount={0.4} delay={2}>
+            <div className="font-display text-[10px] tracking-[0.3em] text-white/40">IN-GAME NOTIFICATION</div>
+            <blockquote className="mt-3 font-display text-sm leading-relaxed text-white/85 md:text-base">
+              “Masked figures were seen gathering near Town Hall after dark…”
+            </blockquote>
+            <p className="mt-3 text-xs text-white/45">Pure mystery set dressing — they never do anything. Probably.</p>
+          </Reveal>
         </div>
       </div>
     </section>

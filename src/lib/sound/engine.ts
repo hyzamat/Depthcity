@@ -157,6 +157,7 @@ const ZONES = {
   "forest-night": { beds: { wind: 0.3, insects: 0.18 }, events: [owl] },
   war: { beds: { wind: 0.2, rumble: 0.45 }, events: [gunfire] },
   space: { beds: { wind: 0.1, drone: 0.35 } },
+  storm: { beds: { wind: 0.55, rumble: 0.3 } },
   show: { beds: { wind: 0.12, crowd: 0.28 }, events: [fireworksShow] },
 } as const satisfies Record<string, ZoneDef>;
 

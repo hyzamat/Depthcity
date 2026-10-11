@@ -1,0 +1,329 @@
+{
+ "_doc": "Every site video/still and where it comes from. Sources: 4K30 trailer shots in E:/DEPTHCITY Trailer/_work/shots (raw, no titles) and portrait gameplay captures in E:/DEPTHCITY Trailer/_work/gameplay. Re-run: python scripts/encode-media.py scripts/media-spec.json public/media [--only name,name]",
+ "clips": [
+  {
+   "name": "season-spring",
+   "src": "B02_spring_street",
+   "in": 1.7,
+   "dur": 3.1,
+   "tallX": 0.5
+  },
+  {
+   "name": "season-summer",
+   "src": "HX48_lagoon_beach_resort",
+   "in": 0.6,
+   "dur": 6.8,
+   "tallX": 0.5
+  },
+  {
+   "name": "season-autumn",
+   "src": "HX08_skydeck_towers",
+   "in": 2.8,
+   "dur": 5.0,
+   "tallX": 0.4
+  },
+  {
+   "name": "season-winter",
+   "src": "HX30_parliament",
+   "in": 0.4,
+   "dur": 7.0,
+   "tallX": 0.5
+  },
+  {
+   "name": "mayor-walk",
+   "src": "D01_walk_to_camera",
+   "in": 1.8,
+   "dur": 5.0,
+   "tallX": 0.5
+  },
+  {
+   "name": "mayor-mansion",
+   "src": "M01_mansion_ext",
+   "in": 0.3,
+   "dur": 7.4,
+   "tallX": 0.47
+  },
+  {
+   "name": "mayor-wedding",
+   "src": "W03_wedding_front",
+   "in": 11.8,
+   "dur": 8.0,
+   "tallX": 0.55
+  },
+  {
+   "name": "mayor-metro",
+   "src": "TR4_metro_moving",
+   "in": 5.2,
+   "dur": 6.4,
+   "tallX": 0.42
+  },
+  {
+   "name": "wild-zoo",
+   "src": "ZO2_zoo_high",
+   "in": 0.3,
+   "dur": 5.4,
+   "tallX": 0.52
+  },
+  {
+   "name": "wild-close",
+   "src": "E06_zoo_animals_close",
+   "in": 0.5,
+   "dur": 5.3,
+   "tallX": 0.3
+  },
+  {
+   "name": "wild-winter",
+   "src": "SE10_winter_zoo",
+   "in": 0.4,
+   "dur": 6.2,
+   "tallX": 0.52
+  },
+  {
+   "name": "party-tower",
+   "src": "SP2_tower_show_east_sea",
+   "in": 4.6,
+   "dur": 7.0,
+   "tallX": 0.5
+  },
+  {
+   "name": "party-led",
+   "src": "C10_special_a",
+   "in": 3.8,
+   "dur": 6.0,
+   "tallX": 0.5
+  },
+  {
+   "name": "party-concert",
+   "src": "CON3_concert_stage",
+   "in": 0.3,
+   "dur": 6.5,
+   "tallX": 0.5
+  },
+  {
+   "name": "party-parade",
+   "src": "PA3_parade_aerial",
+   "in": 2.6,
+   "dur": 5.2,
+   "tallX": 0.45
+  },
+  {
+   "name": "party-market",
+   "src": "MK3_market_top",
+   "in": 0.2,
+   "dur": 5.6,
+   "tallX": 0.5
+  },
+  {
+   "name": "disaster-tornado",
+   "src": "D11_tornado_chase",
+   "in": 0.1,
+   "dur": 4.2,
+   "tallX": 0.5
+  },
+  {
+   "name": "disaster-fire",
+   "src": "F01_fire_night_mall",
+   "in": 0.2,
+   "dur": 6.4,
+   "tallX": 0.45
+  },
+  {
+   "name": "disaster-volcano",
+   "src": "D12_volcano_night",
+   "in": 3.8,
+   "dur": 5.0,
+   "tallX": 0.49
+  },
+  {
+   "name": "war-landing",
+   "src": "WV1_invasion_boats",
+   "in": 3.4,
+   "dur": 3.0,
+   "tallX": 0.5
+  },
+  {
+   "name": "war-bomber",
+   "src": "E11_b2_follow",
+   "in": 0.3,
+   "dur": 7.4,
+   "tallX": 0.5
+  },
+  {
+   "name": "war-streets",
+   "src": "X01_soldier_follow",
+   "in": 0.3,
+   "dur": 6.2,
+   "tallX": 0.48
+  },
+  {
+   "name": "war-defence",
+   "src": "WR4_missile_defense",
+   "in": 0.1,
+   "dur": 5.0,
+   "tallX": 0.58
+  },
+  {
+   "name": "war-siege",
+   "src": "WR12_townhall_siege",
+   "in": 3.0,
+   "dur": 4.8,
+   "tallX": 0.5
+  }
+ ],
+ "stills": [
+  {
+   "name": "night-aurora",
+   "src": "NT2_skyreach_night",
+   "at": 6.5,
+   "portrait": true,
+   "portraitX": 0.46
+  },
+  {
+   "name": "rocket-launch",
+   "src": "R01_rocket_launch",
+   "at": 1.7,
+   "portrait": true,
+   "portraitX": 0.5
+  },
+  {
+   "name": "rocket-pad",
+   "src": "HX42_space_research_center",
+   "at": 4.0
+  },
+  {
+   "name": "rocket-liftoff",
+   "src": "R01_rocket_launch",
+   "at": 1.35
+  },
+  {
+   "name": "lm-skydeck",
+   "src": "HX08_skydeck_towers",
+   "at": 2.0
+  },
+  {
+   "name": "lm-megamall-night",
+   "src": "NT3_megamall_night",
+   "at": 1.3
+  },
+  {
+   "name": "lm-parliament-winter",
+   "src": "HX30_parliament",
+   "at": 3.5
+  },
+  {
+   "name": "lm-airliner",
+   "src": "AP2_airliner_side",
+   "at": 1.0
+  },
+  {
+   "name": "lm-lagoon-resort",
+   "src": "HX48_lagoon_beach_resort",
+   "at": 4.5
+  },
+  {
+   "name": "lm-samurai-castle",
+   "src": "HX15_samurai_castle",
+   "at": 6.5
+  },
+  {
+   "name": "lm-sakura-tower",
+   "src": "HX04_sakura_tower",
+   "at": 3.5
+  },
+  {
+   "name": "lm-amusement",
+   "src": "SE4_summer_amusement",
+   "at": 0.8
+  },
+  {
+   "name": "lm-horizon-museum",
+   "src": "E01_museum_orbit",
+   "at": 4.5
+  },
+  {
+   "name": "lm-shipping-dock",
+   "src": "HX47_shipping_dock",
+   "at": 1.5
+  },
+  {
+   "name": "lm-stadium-autumn",
+   "src": "HX18_football_stadium",
+   "at": 2.0
+  },
+  {
+   "name": "lm-financial-center",
+   "src": "E03_finance_flyover",
+   "at": 0.9
+  },
+  {
+   "name": "hero-skyline",
+   "src": "A02_dawn_skyline_rise",
+   "at": 2.6,
+   "portrait": true,
+   "portraitX": 0.5
+  },
+  {
+   "name": "night-skyline",
+   "src": "A15_night_skyline",
+   "at": 1.1,
+   "portrait": true,
+   "portraitX": 0.5
+  },
+  {
+   "name": "island-sea",
+   "src": "SEA6_dawn_island_day",
+   "at": 2.5
+  }
+ ],
+ "scrub": [
+  {
+   "name": "city-dusk",
+   "src": "A14_sunset_timelapse",
+   "in": 0.0,
+   "dur": 4.4,
+   "tallX": 0.5
+  }
+ ],
+ "play": [
+  {
+   "name": "play-build",
+   "src": "G01_build_landmarks",
+   "in": 0.4,
+   "dur": 8.6
+  },
+  {
+   "name": "play-roads",
+   "src": "G02_roads_and_zones",
+   "in": 1.0,
+   "dur": 11.5
+  },
+  {
+   "name": "play-nature",
+   "src": "G03_paint_nature",
+   "in": 12.2,
+   "dur": 8.8
+  },
+  {
+   "name": "play-policies",
+   "src": "G05_policies",
+   "in": 2.6,
+   "dur": 10.2
+  },
+  {
+   "name": "play-army",
+   "src": "G06_army_recruit",
+   "in": 0.6,
+   "dur": 8.1
+  },
+  {
+   "name": "play-concert",
+   "src": "G07_concert_night",
+   "in": 0.3,
+   "dur": 9.9
+  }
+ ],
+ "trailer": {
+  "src": "E:/DEPTHCITY Trailer/DEPTHCITY_Trailer1_Official_4K.mp4",
+  "note": "official-1080.mp4: 2-pass x264 4500k + AAC 160k; official-720.mp4: CRF 24 + AAC 128k; both +faststart. official-poster.webp = hero-skyline-1600.webp"
+ }
+}

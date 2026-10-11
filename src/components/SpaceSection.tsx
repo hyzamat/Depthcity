@@ -48,9 +48,9 @@ export default function SpaceSection() {
       <div className="sticky-stage">
         <motion.div className="absolute inset-0 will-change-transform" style={{ scale: imgScale, y: imgY }}>
           <Img
-            name="rocket-night"
-            alt="The BADUSHA rocket lifting off from the Space Research Center under an aurora"
-            className="h-full w-full object-cover object-[55%_40%]"
+            name="rocket-launch"
+            alt="The BADUSHA rocket climbing away from the Space Research Center over the city"
+            className="h-full w-full object-cover object-[50%_40%]"
             portrait
             sizes="125vw"
           />
@@ -76,9 +76,9 @@ export default function SpaceSection() {
                 <SplitWords text="Reach for orbit." />
               </h2>
               <p className="lede mt-6 max-w-lg !text-white/80">
-                Tap the Space Research Center and the Play button becomes LAUNCH. Engines light, the apron vanishes under
-                an exhaust cloud, and the rocket climbs right out of the top of the sky. Then the pad needs a full week
-                before it can fly again.
+                Build the Space Research Center, one of the last cards in the game, and its Play button becomes LAUNCH.
+                Engines light, the apron vanishes under an exhaust cloud, and the BADUSHA rocket climbs right out of the
+                top of the sky. Then the pad needs a full week before it can fly again.
               </p>
             </div>
           </div>
@@ -91,12 +91,12 @@ export default function SpaceSection() {
         <div className="mx-auto grid max-w-7xl gap-4 px-6 pb-24 md:grid-cols-2 md:px-10 md:pb-36">
           <Reveal className="group overflow-hidden rounded-3xl ring-glow" amount={0.3}>
             <div className="aspect-[16/10]">
-              <Img name="rocket-day" alt="Daytime launch — the rocket clears the pad over the Eiffel district" className="h-full w-full object-cover transition-transform duration-[1.6s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-[1.03]" sizes="(min-width: 768px) 50vw, 100vw" />
+              <Img name="rocket-pad" alt="The Space Research Center, its rocket standing in the gantry" className="h-full w-full object-cover transition-transform duration-[1.6s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-[1.03]" sizes="(min-width: 1280px) 616px, (min-width: 768px) 50vw, 100vw" />
             </div>
           </Reveal>
           <Reveal className="group overflow-hidden rounded-3xl ring-glow" amount={0.3} delay={1}>
             <div className="aspect-[16/10]">
-              <Img name="rocket-close" alt="Close on the launch tower at golden hour" className="h-full w-full object-cover transition-transform duration-[1.6s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-[1.03]" sizes="(min-width: 768px) 50vw, 100vw" />
+              <Img name="rocket-liftoff" alt="Liftoff — the rocket clears the pad in a cloud of exhaust" className="h-full w-full object-cover transition-transform duration-[1.6s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-[1.03]" sizes="(min-width: 1280px) 616px, (min-width: 768px) 50vw, 100vw" />
             </div>
           </Reveal>
         </div>

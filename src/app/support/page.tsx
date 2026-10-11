@@ -28,8 +28,8 @@ export default function SupportPage() {
       </p>
       <p>To help us fix a problem quickly, please include:</p>
       <ul>
-        <li>Your phone model (for example, Samsung Galaxy S21) and Android or iOS version.</li>
-        <li>The game version (shown in the corner of the title screen, for example v0.1.3).</li>
+        <li>Your device (for example, Samsung Galaxy S21, iPhone 16 Pro or a Windows PC) and its Android, iOS or Windows version.</li>
+        <li>The game version (shown in the corner of the title screen, for example v1.0.0).</li>
         <li>What you were doing when the problem happened, and a screenshot or screen recording if you can.</li>
         <li>
           For upload or data questions, your Player ID: Settings ▸ Interface ▸ Privacy &amp; Support ▸ <em>Copy</em>.
@@ -40,9 +40,11 @@ export default function SupportPage() {
 
       <h3>Where are my cities saved?</h3>
       <p>
-        On your phone, in the game&apos;s private storage. <strong>Uninstalling the game or clearing its storage deletes your
-        cities</strong>, so to update the game, install the new version over the old one instead of uninstalling first. To keep an
-        online copy, upload the city (next question).
+        On your device, in the game&apos;s own app storage. On Android, iPhone and iPad, <strong>uninstalling the game or clearing
+        its storage deletes your cities</strong>, so to update the game, install the new version over the old one instead of
+        uninstalling first. On Windows, cities are kept in <code>{"%USERPROFILE%\\AppData\\LocalLow\\HIZARC\\DEPTHCITY"}</code> and stay there when you update or uninstall.
+        Uploading a city (next question) gives you a copy you can download again with its City ID, but it is a public share, not
+        an automatic backup.
       </p>
 
       <h3>Can I move my city to a new phone?</h3>
@@ -55,7 +57,10 @@ export default function SupportPage() {
 
       <h3>The game is slow or my phone gets warm.</h3>
       <ul>
-        <li>Turn on <strong>Smart Frame Rate</strong> in the game&apos;s settings. It keeps a steady 30 fps and uses less battery.</li>
+        <li>
+          On phones, <strong>Cool Play</strong> and <strong>Smart Frame Rate</strong> are on by default (Settings ▸ Quality ▸ Battery
+          Saver). Check they are still on, and for the coolest play also turn on <strong>Limit to 30 FPS</strong>.
+        </li>
         <li>Large cities with many buildings, troops and traffic need more power. Zooming out to the full-city view is the heaviest
           view.</li>
         <li>Close other apps, and avoid playing for long while the phone is charging. Phones slow down when they get hot.</li>
@@ -64,13 +69,23 @@ export default function SupportPage() {
       <h3>Which devices are supported?</h3>
       <ul>
         <li>
-          <strong>Android:</strong> Android 7.1 or newer with 4 GB RAM. A mid-range phone or better (Snapdragon 720G class) is the
-          minimum; Snapdragon 865 class or newer with 6–8 GB RAM is recommended for large cities.
+          <strong>Android:</strong> Android 7.1 or newer with at least 4 GB RAM. Tested on a Samsung Galaxy S21 Ultra and an iQOO
+          Neo 10. A recent mid-range phone or better is recommended for large cities.
         </li>
         <li>
-          <strong>iOS:</strong> iPhone 11 or newer; iPhone 13 or newer recommended.
+          <strong>iPhone and iPad:</strong> iOS 15 or newer. Tested on an iPhone 16 Pro.
+        </li>
+        <li>
+          <strong>Windows:</strong> 64-bit Windows 10 or newer. Tested on a laptop with an RTX 4070 graphics card.
         </li>
       </ul>
+
+      <h3>Shared cities: rules and reporting</h3>
+      <p>
+        Uploaded cities are public. The first time you upload, the game shows the rules: no offensive names or pictures and no
+        personal details, and cities that break them are removed. The game also refuses offensive city names. To report a city, open
+        Settings ▸ Saves ▸ Download, enter its City ID and tap <strong>Report</strong>, or email us the City ID.
+      </p>
 
       <h3>Does the game need internet?</h3>
       <p>

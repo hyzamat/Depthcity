@@ -140,8 +140,11 @@ body {
 .text-gradient-ember {
   --grad: linear-gradient(120deg, #ffe0b8 0%, #ff8a4d 50%, #ff3d3d 100%);
 }
-:is(.text-gradient-gold, .text-gradient-sky, .text-gradient-aurora, .text-gradient-ember),
-:is(.text-gradient-gold, .text-gradient-sky, .text-gradient-aurora, .text-gradient-ember) .split-word {
+.text-gradient-rose {
+  --grad: linear-gradient(120deg, #fff0f6 0%, #f7a6c8 50%, #c084fc 100%);
+}
+:is(.text-gradient-gold, .text-gradient-sky, .text-gradient-aurora, .text-gradient-ember, .text-gradient-rose),
+:is(.text-gradient-gold, .text-gradient-sky, .text-gradient-aurora, .text-gradient-ember, .text-gradient-rose) .split-word {
   background-image: var(--grad);
   -webkit-background-clip: text;
   background-clip: text;
@@ -152,7 +155,7 @@ body {
   padding-bottom: 0.1em;
   margin-bottom: -0.1em;
 }
-:is(.text-gradient-gold, .text-gradient-sky, .text-gradient-aurora, .text-gradient-ember):has(.split-word) {
+:is(.text-gradient-gold, .text-gradient-sky, .text-gradient-aurora, .text-gradient-ember, .text-gradient-rose):has(.split-word) {
   background-image: none;
 }
 
@@ -197,6 +200,27 @@ body {
 .btn-ghost:hover {
   background: rgba(255, 255, 255, 0.09);
   transform: translateY(-2px);
+}
+
+/* ---- hero intro: plain CSS, so the hero is in the server HTML and animates in before any script runs ---- */
+.intro {
+  animation: intro-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--d, 0s);
+}
+.intro-zoom {
+  animation: intro-zoom 2.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes intro-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+@keyframes intro-zoom {
+  from {
+    opacity: 0.35;
+    transform: scale(1.1);
+  }
 }
 
 /* ---- sound toggle: bars bounce while sound is on ---- */

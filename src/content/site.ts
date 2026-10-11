@@ -1,12 +1,17 @@
 /**
  * All site copy lives here so new details can be added without touching layout code.
+ * Facts follow the DEPTH CITY 1.0.0 build (2026-10-11): store listing text, CardRenames.cs (no real landmark
+ * names), NationConfig.cs (9 rivals), LevelLadder.cs (125 levels) and the catalogue (178 building cards, 11 tabs).
  */
 export const site = {
-  name: "Depth City",
-  tagline: "Build deeper.",
+  name: "DEPTH CITY",
+  /** store title: "DEPTH CITY: Build & Defend" */
+  tagline: "Build & Defend",
+  /** the line under the wordmark on the title screen */
+  motto: "BUILD • EXPAND • DEFEND • CONQUER",
   description:
-    "Depth City is a city-building game with real depth — a living island that breathes through day and night, rival nations to outwit or outgun, a secret order in the woods, and a rocket that leaves the tower behind. Made with passion by IT engineer Shainal Badusha.",
-  status: "In development · Built in Unity",
+    "DEPTH CITY is an island city builder with a real economy, a living world and a war to win. Build your city, run it as the Mayor, and defend it when rival nations come from the sea. Coming soon to Android, iPhone, iPad and Windows.",
+  status: "Version 1.0 · Coming soon to Android, iOS & Windows",
   company: "HIZARC",
   supportEmail: "hizarcgames@hizarc.com",
   androidPackage: "com.hizarc.depthcity",
@@ -29,36 +34,84 @@ export const site = {
   },
 };
 
+export const hero = {
+  image: "hero-skyline",
+  alt: "DEPTH CITY skyline at noon — the Skyreach Tower rising over an island city",
+  position: "50% 45%",
+  pitch:
+    "Turn an empty island into a glittering metropolis, then keep it alive. Run its economy, walk its streets as the Mayor, and defend it when rival nations come from the sea.",
+};
+
 export const stats = [
-  { value: 181, suffix: "", label: "Buildings to unlock", hint: "6 categories, from bakeries to THAAD batteries" },
-  { value: 11, suffix: "", label: "Rival nations", hint: "Each with a treasury, an army and a mood" },
-  { value: 24, suffix: "h", label: "Living day cycle", hint: "Rose dawns, golden hours, moonlit nights" },
-  { value: 1, suffix: "", label: "Secret society", hint: "You were never told about it" },
+  { value: 170, suffix: "+", label: "Buildings", hint: "Across 11 categories, from power plants to a billion-dollar games studio" },
+  { value: 125, suffix: "", label: "City levels", hint: "From a bare island to the last mega projects" },
+  { value: 9, suffix: "", label: "Rival nations", hint: "Each with a treasury, an army and a mood" },
+  { value: 7, suffix: "", label: "Disasters", hint: "Start them yourself, or let them find you" },
 ];
 
+/** The store listing's six promises, in its own words where possible. */
 export const pillars = [
   {
-    title: "A city that breathes",
-    body: "Traffic, pedestrians, metro and rail, ships in the harbour, birds over the bay. Every service you place shows up on the streets — and every outage shows up too.",
+    title: "Build your city",
+    body: "Draw streets, one-way roads, boardwalks, railways, an elevated metro and subways. Drag out zones and watch them fill. Place 170+ buildings across 11 categories, and climb 125 city levels.",
     accent: "sky",
   },
   {
-    title: "War with consequences",
-    body: "Recruit, drill, scramble jets. Raid rival nations for loot — or watch them land on your shore and march on the town hall. Both armies fight in shifts, and the books balance in the same currency.",
+    title: "Run the economy",
+    body: "Set taxes, pass policies and research new technology. Income follows real demand and costs grow with your city. Overspend and you face austerity, debt and creditors at the door.",
+    accent: "gold",
+  },
+  {
+    title: "Defend your island",
+    body: "Nine rival nations are watching. Arm your city and their invasions land on your beaches. Build defences and missile shields, scramble jets — then raid them back.",
     accent: "ember",
   },
   {
-    title: "Hidden depth",
-    body: "Forest rituals. Back-alley gatherings. A New Year show on the tallest tower. A rocket named after its maker. The deeper you look, the more you find.",
+    title: "Live as the Mayor",
+    body: "Step out of the map and walk your own streets. Drive your cars, walk into shops and homes, find love, hold a wedding, and take the family out.",
+    accent: "rose",
+  },
+  {
+    title: "A world that lives",
+    body: "Day and night, spring blossom, monsoon rain, autumn leaves and winter snow. Traffic, trains, airliners, farms, a zoo and wildlife. Fireworks, concerts, parades — and seven kinds of disaster.",
     accent: "aurora",
+  },
+  {
+    title: "Play your way",
+    body: "Play offline, any time, with no ads and no in-app purchases. Portrait or landscape, on phone, tablet or PC. Share your city with friends using a City ID.",
+    accent: "teal",
   },
 ];
 
+/** Real gameplay, recorded on the game's own screen (public/media/play/<clip>.mp4 + .webp poster, 720×1280). */
+export const gameplay: { clip: string; title: string; body: string }[] = [
+  { clip: "play-build", title: "Build anything", body: "Open Build, pick a card and drop it. Construction crews take it from there." },
+  { clip: "play-roads", title: "Draw your roads", body: "Drag a street across the lot, zone the blocks beside it, and the houses come." },
+  { clip: "play-nature", title: "Paint nature", body: "Brush forests, lawns and beaches across the island. Wild animals find them." },
+  { clip: "play-policies", title: "Enact policies", body: "Spend policy points on 21 policies, from Low-Interest Loans to a Four-Day Work Week." },
+  { clip: "play-concert", title: "Throw a concert", body: "Eight city events, from a farmers market to a stadium concert and a fireworks show." },
+];
+
+/** The Army screen, shown as a phone in the War section. */
+export const armyClip = { clip: "play-army", title: "Raise an army", body: "Recruit soldiers, commandos and special forces, set army pay, and deploy helicopters, fighter jets and the B2 bomber." };
+
 export const warFeatures = [
-  { title: "Eleven rival nations", body: "Real landmasses on a relief world map. Treasuries, commodities, standing armies, relations that drift — and a daily tribute once they're conquered." },
-  { title: "Intelligence agency", body: "Place one and foreign powers take notice. Intercept the plan, count down the days, fortify — or strike first." },
-  { title: "Air raid warning", body: "Red-uniformed infantry, tanks, helicopters and jets cross the border. Your air base scrambles interceptors on its own." },
-  { title: "Siege of the town hall", body: "Spearhead, raiders and screen. If the seat of government falls, the city is sacked and the invaders loot half the treasury." },
+  {
+    title: "Nine rival nations",
+    body: "Each one is an island on the world map, ranked by military might, with its own treasury, oil, minerals, weapons and an army that rebuilds. They trade, take sides and go to war with each other.",
+  },
+  {
+    title: "They come from the sea",
+    body: "Arm your city and you are on the world stage. Invaders land on your beaches with helicopters and jets overhead. An Intelligence Agency buys you days of warning to sandbag, hire mercenaries and pick a standing order.",
+  },
+  {
+    title: "Shields up",
+    body: "Radar, air defence and missile defence batteries, and a Technology Tower whose sky shield vaporises any enemy aircraft that enters it. Your air base scrambles its own interceptors.",
+  },
+  {
+    title: "Raid them back",
+    body: "Open the world map, tap a rival and land troops on their sand. Send in named jets and bombers, fire a missile — or a nuke. Bring down their Town Hall and half their city and they surrender: make them your colony.",
+  },
 ];
 
 /**
@@ -67,72 +120,165 @@ export const warFeatures = [
  */
 export type ReelChapter = { clip: string; label: string; title: string; body: string };
 
-export const battleReel: ReelChapter[] = [
+export const seasonsReel: ReelChapter[] = [
   {
-    clip: "war-city",
-    label: "The drop",
-    title: "They come in over the rooftops.",
-    body: "Drop jets cross the shoreline and the sky fills with canopies — infantry first, then armour on heavy chutes. Before the first boots touch the street, the city is already a battlefield.",
+    clip: "season-spring",
+    label: "Spring",
+    title: "The trees come out in blossom.",
+    body: "Ten days of pink and white along every avenue, with light showers in between. The farms are planting, so food runs slow.",
   },
   {
-    clip: "war-invaders",
-    label: "The assault",
-    title: "The enemy army pushes for the town hall.",
-    body: "Red-uniformed squads sprint the crossings, drop to a knee and open fire. Spearheads go for the seat of government, raiders for the richest blocks, a screen to pin your army down.",
+    clip: "season-summer",
+    label: "Fair weather",
+    title: "Long sunny days at the lagoon.",
+    body: "Most of the year is fair: sunbathers on the sand, parasols on the beach, bungalows over a turquoise pool. Twice a year the monsoon rolls in, with a storm on its middle day.",
   },
   {
-    clip: "war-gunfire",
-    label: "The line holds",
-    title: "Your army answers, shot for shot.",
-    body: "Your soldiers take the corners, kneel behind the cars and trade fire. Each round is simulated — muzzle flash, a tracer that really flies, sparks where it lands, brass bouncing off the asphalt.",
+    clip: "season-autumn",
+    label: "Autumn",
+    title: "Then the whole island turns gold.",
+    body: "Forests go orange, red and yellow and the leaves start to fall. Harvest time: the farms bring in double food.",
+  },
+  {
+    clip: "season-winter",
+    label: "Winter",
+    title: "Snow on every roof.",
+    body: "Snow settles on rooftops, trees and roads, snowplows clear the streets, and the Ice Festival opens for the last days of the year.",
   },
 ];
 
-export const showReel: ReelChapter[] = [
+export const mayorReel: ReelChapter[] = [
   {
-    clip: "show-midnight",
-    label: "Midnight",
-    title: "Three, two, one — the tower goes up.",
-    body: "The countdown runs down the facade in seven-segment digits, searchlights lean in over the spire, and at midnight every level of every wing fires at once.",
+    clip: "mayor-walk",
+    label: "On foot",
+    title: "Step out of the map and walk your own streets.",
+    body: "Drag the Mayor onto the city — a rooftop, a mountain, even the roof of a moving train — and walk. The city you built is solid all around you.",
   },
   {
-    clip: "show-waterfall",
-    label: "Waterfall",
-    title: "Gold pours off every setback.",
-    body: "Cascades run down the wings while the LED skin plays a wave of flame from the base to the spire. The camera circles the tower with the whole city lit below.",
+    clip: "mayor-mansion",
+    label: "Home",
+    title: "The Mayor has a mansion.",
+    body: "Build the Mayor Mansion or buy any house in town, then walk in through the front door. Shops, homes and the Town Hall have interiors too.",
   },
   {
-    clip: "show-spiral",
-    label: "Spiral",
-    title: "A helix of purple and cyan.",
-    body: "Fans spin up the wings in a barber-pole spiral and shells crown the spire. Look up from the street and the tower fills the sky.",
+    clip: "mayor-wedding",
+    label: "The wedding",
+    title: "Find love. Hold the wedding on the plaza.",
+    body: "Propose on the street, and if your honour is high enough the answer is yes. Then a balloon arch, a red carpet and a cheering crowd outside the mansion.",
   },
   {
-    clip: "show-finale",
-    label: "Finale",
-    title: "Everything, then one last hit.",
-    body: "The facade flicks through every colour, the whole tower fires together and the sky over the island fills with gold. Then smoke, applause — and dawn.",
+    clip: "mayor-metro",
+    label: "Ride the city",
+    title: "Drive it, fly it, or ride on top of it.",
+    body: "Take your cars out, fly planes and helicopters, or hop onto a moving metro and watch the skyline slide by. Then take the family out for the day.",
   },
 ];
 
 export const wildReel: ReelChapter[] = [
   {
-    clip: "zoo-orbit",
-    label: "Big Zoo Park",
+    clip: "wild-zoo",
+    label: "Classic Zoo Park",
     title: "A whole zoo, alive in the middle of town.",
-    body: "Elephants, giraffes, lions, tigers, pandas, penguins, hippos, rhinos, zebras — sixteen species in their own enclosures, every one of them animated.",
+    body: "Elephants, camels, zebras, penguins, a crocodile — nineteen animals in their own enclosures, every one of them moving.",
   },
   {
-    clip: "zoo-close",
+    clip: "wild-close",
     label: "Up close",
     title: "Zoom all the way in. They're still moving.",
-    body: "Bring the camera down to the paths between the pens: the crocodile in its pool, the penguins on their ice, the elephants by the wall — each one on its own loop.",
+    body: "The tiger in its cage, the elephants by the wall, a buffalo standing in its pool — each one idling on its own loop.",
   },
   {
-    clip: "wild-herd",
-    label: "Out in the wild",
-    title: "Leave land wild and the animals move in.",
-    body: "Forests draw deer, foxes and bears; open meadows get cows, goats and rabbits. Herds wander and graze on their own — and somewhere in the trees, a tiger is waiting for its moment.",
+    clip: "wild-winter",
+    label: "All year round",
+    title: "Snow on the pens. Nobody stops.",
+    body: "Beyond the zoo, leave land wild and animals move in on their own: deer, bears, boars and wolves in the forests; cattle, goats, chickens and rabbits in the meadows.",
+  },
+];
+
+export const showReel: ReelChapter[] = [
+  {
+    clip: "party-tower",
+    label: "Special Event",
+    title: "Light up the Skyreach Tower.",
+    body: "Start the Special Event and night falls over the city. The tower's LED skin runs through every colour and a record-breaking fireworks show climbs to the spire.",
+  },
+  {
+    clip: "party-led",
+    label: "The tower show",
+    title: "Gold, crimson, cyan — all the way to the top.",
+    body: "Patterns race up the facade while searchlights sweep the sky and shells burst around the tower, with the whole lit city below.",
+  },
+  {
+    clip: "party-concert",
+    label: "Stadium Concert",
+    title: "A stadium full of people, on its feet.",
+    body: "Put on a concert at the Football Stadium: a stage, lasers, a giant screen and a crowd with its hands in the air.",
+  },
+  {
+    clip: "party-parade",
+    label: "Parade",
+    title: "Bands, floats and giant balloons.",
+    body: "Send a parade through downtown — marchers, banners and a teddy bear the size of a house floating above the junction.",
+  },
+  {
+    clip: "party-market",
+    label: "Farmers Market",
+    title: "Stalls, bunting, and a street full of shoppers.",
+    body: "Close a street for a farmers market. Block parties, a marathon and the winter Ice Festival are in the Events window too.",
+  },
+];
+
+export const disasterReel: ReelChapter[] = [
+  {
+    clip: "disaster-tornado",
+    label: "Tornado",
+    title: "It tears a path straight through town.",
+    body: "A funnel drops out of a clear sky and walks across the farmland, flinging debris as it goes.",
+  },
+  {
+    clip: "disaster-fire",
+    label: "Fire",
+    title: "One spark, and the Mega Mall goes up.",
+    body: "Flames climb the facade and jump to the next building, lighting up the whole block at night. Build a Fire Force before you need it.",
+  },
+  {
+    clip: "disaster-volcano",
+    label: "Volcano",
+    title: "And sometimes the ground opens up.",
+    body: "A volcano shoulders up out of open land beside the city, throws lava bombs, and lights the whole skyline at dusk before it sinks back down.",
+  },
+];
+
+export const battleReel: ReelChapter[] = [
+  {
+    clip: "war-landing",
+    label: "The landing",
+    title: "They come ashore on your beaches.",
+    body: "The siren sounds, the camera punches to the coast, and a wave of infantry charges up the sand with helicopters and jets overhead.",
+  },
+  {
+    clip: "war-bomber",
+    label: "Air power",
+    title: "Bombers in over the beach.",
+    body: "Seven named aircraft, from attack helicopters to the B2 bomber, built at your Weapons Factory. Send them on raids — and watch the sky when theirs come back.",
+  },
+  {
+    clip: "war-streets",
+    label: "Street fighting",
+    title: "Your army takes the corners.",
+    body: "Squads sprint the crossings and kneel to fire. The Mayor can step into the street and fight alongside them.",
+  },
+  {
+    clip: "war-defence",
+    label: "Missile defence",
+    title: "Launchers up. Every missile counts.",
+    body: "Air defence and missile defence batteries track what comes in, and the Technology Tower's dome vaporises enemy aircraft and diverts missiles aimed inside it.",
+  },
+  {
+    clip: "war-siege",
+    label: "The Town Hall",
+    title: "If the Town Hall falls, you pay.",
+    body: "Raiders go for the richest blocks and the crowd closes on the seat of government. Lose it and your city becomes their colony, paying tribute until you take it back.",
   },
 ];
 
@@ -141,13 +287,16 @@ export const wildReel: ReelChapter[] = [
  * The order is chosen so the grid packs with no holes at both column counts.
  */
 export const gallery: { src: string; caption: string; span?: "big" | "wide" }[] = [
-  { src: "district-amusement", caption: "Amusement park & the Dome", span: "big" },
-  { src: "district-airport", caption: "Future Airport" },
-  { src: "district-castle", caption: "Nuclear plant & the old quarter" },
-  { src: "eiffel-day", caption: "Eiffel Tower, Stadium & Space Center", span: "wide" },
-  { src: "district-beach", caption: "Beach resort on the west shore" },
-  { src: "district-army", caption: "Army HQ, air base & Petronas" },
-  { src: "downtown-evening", caption: "Downtown at golden hour", span: "big" },
-  { src: "district-mountains", caption: "Asian & desert mountains" },
-  { src: "downtown-night", caption: "Downtown, moonlit" },
+  { src: "lm-skydeck", caption: "Skydeck Towers in autumn", span: "big" },
+  { src: "lm-megamall-night", caption: "Mega Mall, after dark" },
+  { src: "lm-parliament-winter", caption: "Parliament under snow" },
+  { src: "lm-airliner", caption: "Airliners over the coast", span: "wide" },
+  { src: "lm-lagoon-resort", caption: "Lagoon Beach Resort" },
+  { src: "lm-samurai-castle", caption: "Samurai Castle at night" },
+  { src: "lm-sakura-tower", caption: "Sakura Tower at dusk", span: "big" },
+  { src: "lm-amusement", caption: "Amusement Park" },
+  { src: "lm-horizon-museum", caption: "Horizon Museum" },
+  { src: "lm-shipping-dock", caption: "Shipping Dock in winter" },
+  { src: "lm-stadium-autumn", caption: "Football Stadium" },
+  { src: "lm-financial-center", caption: "Financial Center" },
 ];

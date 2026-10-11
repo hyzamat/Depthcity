@@ -7,18 +7,21 @@ import SectionHeading from "./ui/SectionHeading";
 
 const ACCENT: Record<string, string> = {
   sky: "from-sky/25 to-blue/5 text-sky",
+  gold: "from-gold/25 to-orange/5 text-gold",
   ember: "from-ember/25 to-orange/5 text-ember",
+  rose: "from-rose/25 to-rose/5 text-rose",
   aurora: "from-aurora/25 to-teal/5 text-aurora",
+  teal: "from-teal/25 to-sky/5 text-teal",
 };
 
 export default function Pillars() {
   return (
-    <section className="cv-auto relative bg-bg py-24 md:py-36">
+    <section className="relative bg-bg py-24 md:py-36">
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <SectionHeading
           eyebrow="Why “Depth”"
           title="More than a city builder."
-          lede="Most city games stop at the skyline. This one keeps going — down to the street, out to the world map, and into the woods after dark."
+          lede="Most city games stop at the skyline. This one keeps going: into the economy, down to the street, through the seasons, and out to a world map of rivals who want your island."
         />
         <div className="mt-14 grid gap-4 md:grid-cols-3">
           {pillars.map((p, i) => (

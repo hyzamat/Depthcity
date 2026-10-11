@@ -28,8 +28,8 @@ export default function LegalPage({
     <div className="min-h-svh bg-bg">
       <header className="mx-auto flex max-w-3xl items-center justify-between px-6 pt-6 md:px-10">
         <Link href="/" className="flex items-center gap-3" aria-label={`${site.name} home`}>
-          <img src="/brand/mark-192.png" alt="" className="h-9 w-9" />
-          <img src="/brand/wordmark-1200.png" alt={site.name} className="h-4" />
+          <img src="/brand/mark-192.webp" alt="" width={192} height={192} className="h-9 w-9" />
+          <img src="/brand/wordmark-600.webp" alt={site.name} width={600} height={110} className="h-4 w-auto" />
         </Link>
         <Link href="/" className="glass rounded-full px-4 py-2 text-xs text-white/80 transition hover:text-white">
           ← Back to site

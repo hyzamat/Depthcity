@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 
 /**
@@ -13,17 +12,26 @@ import "lenis/dist/lenis.css";
 export default function SmoothScroll() {
   useEffect(() => {
     if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-    const lenis = new Lenis({
-      lerp: 0.09,
-      wheelMultiplier: 1,
-      smoothWheel: true,
-      syncTouch: false,
-      anchors: { offset: 0 },
-      autoRaf: true,
-      autoToggle: true, // pauses itself while a menu or the gallery sets overflow: hidden
-      respectReducedMotion: true,
+    // Loaded on demand: phones never download Lenis at all.
+    let lenis: { destroy(): void } | null = null;
+    let cancelled = false;
+    import("lenis").then(({ default: Lenis }) => {
+      if (cancelled) return;
+      lenis = new Lenis({
+        lerp: 0.09,
+        wheelMultiplier: 1,
+        smoothWheel: true,
+        syncTouch: false,
+        anchors: { offset: 0 },
+        autoRaf: true,
+        autoToggle: true, // pauses itself while a menu or the gallery sets overflow: hidden
+        respectReducedMotion: true,
+      });
     });
-    return () => lenis.destroy();
+    return () => {
+      cancelled = true;
+      lenis?.destroy();
+    };
   }, []);
   return null;
 }

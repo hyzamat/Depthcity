@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/privacy/" },
 };
 
-const UPDATED = "9 October 2026";
+const UPDATED = "11 October 2026";
 
 export default function PrivacyPage() {
   const mail = `mailto:${site.supportEmail}`;
@@ -27,8 +27,8 @@ export default function PrivacyPage() {
 
       <h2>1. Who we are</h2>
       <p>
-        {site.name} (Android package <code>{site.androidPackage}</code>) and this website are made by {site.company} (&quot;we&quot;,
-        &quot;us&quot;). For any privacy question or request, email <a href={mail}>{site.supportEmail}</a>.
+        {site.name} (for Android, iPhone, iPad and Windows; Android package and iOS bundle ID <code>{site.androidPackage}</code>)
+        and this website are made by {site.company} (&quot;we&quot;, &quot;us&quot;). For any privacy question or request, email <a href={mail}>{site.supportEmail}</a>.
       </p>
 
       <h2>2. Data the game handles</h2>
@@ -60,7 +60,7 @@ export default function PrivacyPage() {
                 Uploaded cities: the city&apos;s save data, its name, a picture of the city, and a share code linked to your player ID
               </td>
               <td>Only when you tap Upload (Settings ▸ Saves)</td>
-              <td>So you can back up your city, move it to another device, or share it with friends</td>
+              <td>So you can move your city to another device or share it with friends (an upload is a public share, not an automatic backup)</td>
               <td>
                 Unity Cloud Save (our service provider). <strong>Uploaded cities are public:</strong> any player who has the City ID can
                 download a copy.
@@ -83,15 +83,16 @@ export default function PrivacyPage() {
       </div>
       <p>
         The game does <strong>not</strong> collect your name, email address, phone number, precise or approximate location, contacts,
-        photos, videos, audio, files, messages, browsing history, the list of apps on your device, or payment information. The only
-        Android permission it requests is internet access.
+        photos, videos, audio, files, messages, browsing history, the list of apps on your device, or payment information. On
+        Android it asks for no permission you have to grant: its manifest declares only normal install-time permissions (internet
+        access, network state, and the foreground-service permissions used by its built-in libraries).
       </p>
 
       <h2>3. Data this website handles</h2>
       <ul>
         <li>
-          <strong>&quot;Notify me&quot; form:</strong> your email address, so we can tell you about the beta, the store pages and the
-          launch. Nothing else is sent to that address.
+          <strong>&quot;Notify me&quot; form:</strong> your email address, so we can tell you about the closed test, the store pages
+          and the launch. Nothing else is sent to that address.
         </li>
         <li>
           <strong>Contact form:</strong> your name and message, and the email address and phone number if you choose to give them, so
@@ -138,10 +139,12 @@ export default function PrivacyPage() {
       <h2>7. How long data is kept</h2>
       <ul>
         <li>
-          <strong>On your device:</strong> until you delete the city in the game, clear the app&apos;s data, or uninstall the game.
+          <strong>On your device:</strong> until you delete the city in the game, clear the app&apos;s data, or uninstall the game
+          (on Windows, uninstalling keeps your cities; see section 8).
         </li>
         <li>
-          <strong>Anonymous account and uploaded cities:</strong> until you ask us to delete them. Uploading the same city again
+          <strong>Anonymous account and uploaded cities:</strong> until you delete them in the game (Delete Data, section 8) or ask
+          us to delete them. Uploading the same city again
           replaces the earlier upload. Copies that other players have already downloaded stay on their devices, and we cannot delete
           those.
         </li>
@@ -164,11 +167,19 @@ export default function PrivacyPage() {
           <strong>Don&apos;t upload:</strong> if you never tap Upload, your cities stay only on your device.
         </li>
         <li>
-          <strong>Delete game data on your phone:</strong> delete a city from the game&apos;s city list, or clear the app&apos;s storage
-          or uninstall the game.
+          <strong>Delete game data on your device:</strong> delete a city from the game&apos;s city list (this does not remove a copy
+          you uploaded). To remove everything: on Android, clear the app&apos;s storage or uninstall the game; on iPhone and iPad,
+          delete the app; on Windows, delete the folder <code>{"%USERPROFILE%\\AppData\\LocalLow\\HIZARC\\DEPTHCITY"}</code> (your cities) and the registry key{" "}
+          <code>{"HKEY_CURRENT_USER\\Software\\HIZARC\\DEPTHCITY"}</code> (settings and the anonymous player ID). Uninstalling the game on Windows keeps both.
+          Delete your online data first (next point): once the player ID is gone from the device, Delete Data in a fresh install
+          cannot reach your earlier uploads.
         </li>
         <li>
-          <strong>Delete your online data</strong> (anonymous account, uploaded cities, website form entries): follow the steps on{" "}
+          <strong>Delete your online data in the game:</strong> Settings ▸ Interface ▸ Privacy &amp; Support ▸ <em>Delete Data</em>
+          (tap twice, with an internet connection) deletes the cities this install uploaded and its anonymous player ID.
+        </li>
+        <li>
+          <strong>Or ask us</strong> (also for website form entries): follow the steps on{" "}
           <Link href="/delete-data/">Delete my data</Link>, or email <a href={mail}>{site.supportEmail}</a>. We delete it within 30 days
           and confirm by email.
         </li>

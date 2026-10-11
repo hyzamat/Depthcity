@@ -4,14 +4,17 @@ import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import CityBuildSection from "@/components/city/CityBuildSection";
 import Pillars from "@/components/Pillars";
+import GameplaySection from "@/components/GameplaySection";
 import DayNight from "@/components/DayNight";
-import StreetView from "@/components/StreetView";
+import SeasonsSection from "@/components/SeasonsSection";
 import SkySection from "@/components/SkySection";
+import MayorSection from "@/components/MayorSection";
 import WildSection from "@/components/WildSection";
+import ShowSection from "@/components/ShowSection";
+import DisastersSection from "@/components/DisastersSection";
 import WarSection from "@/components/WarSection";
 import SpaceSection from "@/components/SpaceSection";
 import SocietySection from "@/components/SocietySection";
-import ShowSection from "@/components/ShowSection";
 import Gallery from "@/components/Gallery";
 import Stats from "@/components/Stats";
 import Creator from "@/components/Creator";
@@ -27,14 +30,17 @@ export default function Home() {
       <Hero />
       <CityBuildSection />
       <Pillars />
+      <GameplaySection />
       <DayNight />
-      <StreetView />
+      <SeasonsSection />
       <SkySection />
+      <MayorSection />
       <WildSection />
+      <ShowSection />
+      <DisastersSection />
       <WarSection />
       <SpaceSection />
       <SocietySection />
-      <ShowSection />
       <Gallery />
       <Stats />
       <Creator />

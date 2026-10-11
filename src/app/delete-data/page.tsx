@@ -16,24 +16,25 @@ export default function DeleteDataPage() {
     <LegalPage eyebrow="Your data" title="Delete my data">
       <div className="summary">
         <p>
-          {site.name} by {site.company}. You can delete the data on your phone yourself at any time. To delete your online data
-          (anonymous account and uploaded cities), email us and we delete it within 30 days. You do not need an account or a password.
+          {site.name} by {site.company}. You can delete the data on your device yourself at any time. To delete your online data
+          (anonymous account and uploaded cities), use <em>Delete Data</em> in the game before you uninstall, or email us and we
+          delete it within 30 days.
+          You do not need an account or a password.
         </p>
       </div>
 
-      <h2>1. Delete the data on your phone</h2>
-      <ul>
-        <li>
-          <strong>One city:</strong> open the game&apos;s city list and delete the city.
-        </li>
-        <li>
-          <strong>Everything on the phone:</strong> Android Settings → Apps → {site.name} → Storage → <em>Clear storage</em>, or
-          uninstall the game.
-        </li>
-      </ul>
-      <p>This removes your cities and settings from the phone. It cannot be undone.</p>
-
-      <h2>2. Delete your online data</h2>
+      <h2>1. Delete your online data first</h2>
+      <p>
+        Do this <strong>before</strong> you clear the game&apos;s storage, uninstall it or move to a new device. Your uploads are tied
+        to the anonymous player ID stored on this device; once that is gone, the game can no longer find them (email us instead).
+      </p>
+      <h3>In the game (fastest)</h3>
+      <p>
+        Open Settings ▸ Interface ▸ Privacy &amp; Support and tap <strong>Delete Data</strong> twice. It needs an internet connection.
+        The cities this install uploaded and its anonymous player ID are deleted at once. If it says it couldn&apos;t delete, try
+        again online, or use email.
+      </p>
+      <h3>By email</h3>
       <ol>
         <li>
           Email <a href={mail}>{site.supportEmail}</a> with the subject <strong>&quot;{subject}&quot;</strong>.
@@ -42,6 +43,10 @@ export default function DeleteDataPage() {
           Paste your Player ID into the email (Settings ▸ Interface ▸ Privacy &amp; Support ▸ <em>Copy</em>). It tells us which
           account is yours. Without it, list the City IDs you uploaded.
         </li>
+        <li>
+          To remove your website entries too, tell us the email address (and the name or phone number) you typed into the Notify me
+          or Contact form.
+        </li>
         <li>We delete the data and reply to confirm within 30 days.</li>
       </ol>
       <p>
@@ -49,6 +54,25 @@ export default function DeleteDataPage() {
           Email a deletion request
         </a>
       </p>
+
+      <h2>2. Delete the data on your device</h2>
+      <ul>
+        <li>
+          <strong>One city:</strong> open the game&apos;s city list and delete the city. This does not remove a copy you uploaded.
+        </li>
+        <li>
+          <strong>Everything on Android:</strong> Settings → Apps → {site.name} → Storage → <em>Clear storage</em>, or uninstall the
+          game.
+        </li>
+        <li>
+          <strong>Everything on iPhone or iPad:</strong> delete the app.
+        </li>
+        <li>
+          <strong>Everything on Windows:</strong> delete the folder <code>{"%USERPROFILE%\\AppData\\LocalLow\\HIZARC\\DEPTHCITY"}</code> (your cities) and the registry key{" "}
+          <code>{"HKEY_CURRENT_USER\\Software\\HIZARC\\DEPTHCITY"}</code> (settings and the anonymous player ID). Uninstalling the game keeps both.
+        </li>
+      </ul>
+      <p>This removes your cities and settings from the device. It cannot be undone.</p>
 
       <h2>3. What is deleted</h2>
       <div className="table-wrap">

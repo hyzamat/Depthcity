@@ -47,7 +47,7 @@ const SOCIAL: { key: keyof typeof site.links; label: string }[] = [
       <footer id="follow" className="relative overflow-hidden bg-bg">
         {/* closing image */}
         <div className="relative h-[70svh] min-h-[480px]">
-          <Img name="hero-skyline-night" alt="Depth City at night" className="h-full w-full object-cover object-[50%_45%]" portrait sizes="100vw" />
+          <Img name="night-skyline" alt="The DEPTH CITY skyline at night, the Skyreach Tower lit against the stars" className="h-full w-full object-cover object-[50%_60%]" portrait sizes="100vw" />
           <div className="absolute inset-0 bg-gradient-to-b from-bg via-bg/30 to-bg" />
           <div className="absolute inset-0 flex items-center justify-center px-6 text-center">
             <div className="max-w-2xl">
@@ -58,7 +58,8 @@ const SOCIAL: { key: keyof typeof site.links; label: string }[] = [
                 <SplitWords text="Be there when the first road is laid." />
               </h2>
               <Reveal as="p" className="lede mx-auto mt-6 max-w-lg !text-white/75" delay={2}>
-                Leave your email and you’ll hear about the beta, the store pages and the launch — nothing else.
+                Version 1.0 is built for Android, iPhone, iPad and Windows. Leave your email and you’ll hear about the
+                closed test, the store pages and the launch — nothing else.
               </Reveal>
   
               <Reveal className="mx-auto mt-8 max-w-md" delay={3}>
@@ -89,8 +90,8 @@ const SOCIAL: { key: keyof typeof site.links; label: string }[] = [
       <div className="mx-auto max-w-7xl px-6 pb-10 pt-6 md:px-10">
         <div className="flex flex-col items-start justify-between gap-8 border-t border-white/8 pt-8 md:flex-row md:items-center">
           <div className="flex items-center gap-3">
-            <img src="/brand/mark-192.png" alt="" className="h-10 w-10" />
-            <img src="/brand/wordmark-1200.png" alt={site.name} className="h-5" />
+            <img src="/brand/mark-192.webp" alt="" width={192} height={192} loading="lazy" className="h-10 w-10" />
+            <img src="/brand/wordmark-600.webp" alt={site.name} width={600} height={110} loading="lazy" className="h-5 w-auto" />
           </div>
 
           <ul className="flex flex-wrap gap-2">
@@ -120,8 +121,8 @@ const SOCIAL: { key: keyof typeof site.links; label: string }[] = [
           ))}
         </nav>
         <div className="mt-4 flex flex-col gap-2 text-xs text-white/40 md:flex-row md:items-center md:justify-between">
-          <span>© {new Date().getFullYear()} {site.name}. Made with passion by {site.creator.name}.</span>
-          <span>Built in Unity. All screenshots are real, captured in-engine.</span>
+          <span>© {new Date().getFullYear()} {site.company}. {site.name}. Made with passion by {site.creator.name}.</span>
+          <span>Made with Unity. Every clip and still is recorded in the game.</span>
         </div>
       </div>
     </footer>

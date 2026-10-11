@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   AnimatePresence,
   motion,
@@ -15,12 +15,15 @@ import type { ReelChapter } from "@/content/site";
 import { pad } from "./scrollRange";
 import { sound, type Zone } from "@/lib/sound/engine";
 import { useSoundZone } from "../sound/SoundZone";
+import { useDwell } from "./useDwell";
+import { playWhenAllowed, releaseVideo } from "./media";
 
 /**
  * Pinned cinematic reel: real in-game footage, one chapter per screen of scroll. The chapter on
  * stage autoplays (muted, looping) and cross-fades to the next as you scroll; the title card and the
- * chapter rail follow. Clips attach only once the reel is close, and only the current + next chapter,
- * so a visitor downloads the footage they actually reach.
+ * chapter rail follow. Only the chapter on stage and its two neighbours have a poster and a <video>
+ * attached, and only while the reel is within a screen of the viewport: a visitor downloads the
+ * footage they actually reach, and phones get their video decoders back once a reel is behind them.
  */
 const MEDIA = "/media/cine";
 
@@ -28,7 +31,14 @@ const ACCENTS = {
   ember: { text: "!text-ember", bar: "bg-ember" },
   aurora: { text: "!text-aurora", bar: "bg-aurora" },
   gold: { text: "!text-gold", bar: "bg-gold" },
+  sky: { text: "!text-sky", bar: "bg-sky" },
+  rose: { text: "!text-rose", bar: "bg-rose" },
 } as const;
+
+export type ReelAccent = keyof typeof ACCENTS;
+
+/** Scroll length of one chapter: enough to read the title card, short enough to keep the page moving. */
+const CHAPTER_SVH = 85;
 
 type Tier = "1080" | "1440" | "tall";
 
@@ -54,16 +64,18 @@ export default function CineReel({
 }) {
   const ref = useRef<HTMLElement>(null);
   const n = chapters.length;
-  const near = useInView(ref, { margin: "100% 0px 100% 0px", once: true });
+  const near = useDwell(useInView(ref, { margin: "100% 0px 100% 0px" }));
   const onStage = useInView(ref);
+  const onStageRef = useRef(false);
+  useEffect(() => {
+    onStageRef.current = onStage;
+  }, [onStage]);
   const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
   const a = ACCENTS[accent];
 
   const [active, setActive] = useState(0);
   const activeRef = useRef(0);
-  // Furthest chapter whose clip is attached: the current one plus the next (never detached again).
-  const [reach, setReach] = useState(1);
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     const i = Math.min(n - 1, Math.max(0, Math.floor(v * n)));
     if (i !== activeRef.current) {
@@ -71,8 +83,9 @@ export default function CineReel({
       setActive(i);
       if (onStage) sound.whoosh(0.14, 0.6);
     }
-    setReach((prev) => Math.max(prev, i + 1));
   });
+  /** chapters that get a poster and a clip right now: the one on stage and its neighbours */
+  const attached = (i: number) => Math.abs(i - active) <= 1;
   useSoundZone(onStage, zone ?? null);
   useEffect(() => {
     if (onStage) sound.intensity(n > 1 ? active / (n - 1) : 1);
@@ -90,6 +103,20 @@ export default function CineReel({
   // Play the chapter on stage from the top; everything else waits paused.
   const videos = useRef<(HTMLVideoElement | null)[]>([]);
   const lastActive = useRef(-1);
+  const shouldPlay = (i: number) => () => i === activeRef.current && onStageRef.current;
+  // One stable ref callback per chapter (a new function each render would detach and re-attach the element); its
+  // cleanup frees the clip as soon as the chapter is no longer attached.
+  const videoRef = useMemo(
+    () =>
+      Array.from({ length: n }, (_, i) => (el: HTMLVideoElement | null) => {
+        videos.current[i] = el;
+        return () => {
+          releaseVideo(el);
+          if (videos.current[i] === el) videos.current[i] = null;
+        };
+      }),
+    [n],
+  );
   useEffect(() => {
     const changed = lastActive.current !== active;
     lastActive.current = active;
@@ -97,17 +124,17 @@ export default function CineReel({
       if (!v) return;
       if (i === active && onStage && !reduced) {
         if (changed) v.currentTime = 0;
-        if (v.paused) v.play().catch(() => {});
+        if (v.paused) playWhenAllowed(v, shouldPlay(i));
       } else if (!v.paused) {
         v.pause();
       }
     });
-  }, [active, onStage, reduced, reach, near, tier]);
+  }, [active, onStage, reduced, near, tier]);
 
   const c = chapters[active];
 
   return (
-    <section ref={ref} id={id} className="relative bg-bg" style={{ height: `${n * 100 + 40}svh` }}>
+    <section ref={ref} id={id} className="relative bg-bg" style={{ height: `${n * CHAPTER_SVH + 35}svh` }}>
       <div className="sticky-stage">
         {chapters.map((ch, i) => (
           <div
@@ -115,26 +142,26 @@ export default function CineReel({
             className={`absolute inset-0 transition-opacity duration-700 ease-out ${i === active ? "opacity-100" : "opacity-0"}`}
             aria-hidden={i !== active}
           >
-            <picture>
-              <source media="(max-aspect-ratio: 4/5)" srcSet={`${MEDIA}/${ch.clip}-tall.webp`} />
-              <img src={`${MEDIA}/${ch.clip}.webp`} alt="" className="absolute inset-0 h-full w-full object-cover" loading="lazy" decoding="async" />
-            </picture>
-            {tier && near && i <= reach && (
+            {attached(i) && (
+              <picture>
+                <source media="(max-aspect-ratio: 4/5)" srcSet={`${MEDIA}/${ch.clip}-tall.webp`} />
+                <img src={`${MEDIA}/${ch.clip}.webp`} alt="" className="absolute inset-0 h-full w-full object-cover" loading="lazy" decoding="async" />
+              </picture>
+            )}
+            {tier && near && attached(i) && !reduced && (
               <video
-                ref={(el) => {
-                  videos.current[i] = el;
-                }}
+                ref={videoRef[i]}
                 key={tier}
                 src={`${MEDIA}/${ch.clip}-${tier}.mp4`}
                 muted
                 loop
                 playsInline
-                preload="auto"
+                preload={i === active ? "auto" : "metadata"}
                 disablePictureInPicture
                 aria-label={`${ch.label} — ${ch.title} (recorded in the game)`}
                 className="absolute inset-0 h-full w-full object-cover"
                 onCanPlay={(e) => {
-                  if (i === lastActive.current && !reduced) e.currentTarget.play().catch(() => {});
+                  if (i === lastActive.current && onStageRef.current && e.currentTarget.paused) playWhenAllowed(e.currentTarget, shouldPlay(i));
                 }}
               />
             )}

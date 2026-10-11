@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import dynamic from "next/dynamic";
 import { motion, useInView, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { DUSK_AT, SKY, nightAmount } from "./timeline";
@@ -15,8 +15,8 @@ const CityScene = dynamic(() => import("./CityScene"), { ssr: false });
 
 const STAGES = [
   { at: [0.0, 0.2], eyebrow: "01 · Foundations", title: "Lay the roads.", body: "Every city starts as an island and a plan. Roads first — the grid decides everything that follows." },
-  { at: [0.22, 0.48], eyebrow: "02 · Districts", title: "Raise the skyline.", body: "181 buildings across six categories. Homes, shops, factories, services, defense — and the landmarks that make a city yours." },
-  { at: [0.5, 0.77], eyebrow: "03 · Life", title: "Watch it come alive.", body: "Traffic, trains, ships, birds. Citizens walking home. Smoke over the plant. The city starts to breathe." },
+  { at: [0.22, 0.48], eyebrow: "02 · Districts", title: "Raise the skyline.", body: "170+ buildings across 11 categories. Power, water, schools, banks, factories, parks, an army — and the landmarks that make a city yours." },
+  { at: [0.5, 0.77], eyebrow: "03 · Life", title: "Watch it come alive.", body: "Traffic, trains, ships, airliners. Citizens walking home. Smoke over the plant. The city starts to breathe." },
   { at: [0.8, 1.0], eyebrow: "04 · Night", title: "Then the night falls.", body: "Moonlit streets, curb lines that glow, a scattering of lit windows — and, some nights, something moving in the woods." },
 ];
 
@@ -31,6 +31,22 @@ export default function CityBuildSection() {
   const ref = useRef<HTMLElement>(null);
   const progress = useRef(0);
   const inView = useInView(ref, { margin: "20% 0px 20% 0px" });
+  // three.js is the heaviest chunk on the page. The section sits right under the hero, so "near" is true at
+  // load: wait for the first scroll or an idle moment after the hero has painted before fetching it.
+  const near = useInView(ref, { margin: "60% 0px 60% 0px", once: true });
+  const [settled, setSettled] = useState(false);
+  useEffect(() => {
+    const go = () => setSettled(true);
+    const hasIdle = "requestIdleCallback" in window;
+    const idle = hasIdle ? window.requestIdleCallback(go, { timeout: 2500 }) : window.setTimeout(go, 1500);
+    window.addEventListener("scroll", go, { once: true, passive: true });
+    return () => {
+      window.removeEventListener("scroll", go);
+      if (hasIdle) window.cancelIdleCallback(idle);
+      else window.clearTimeout(idle);
+    };
+  }, []);
+  const mount = near && settled;
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
 
   // Sound: roads tick down in the foundations phase, buildings knock into place as they rise (rate
@@ -132,7 +148,7 @@ export default function CityBuildSection() {
         </motion.div>
 
         {/* the city */}
-        <CityScene progress={progress} active={inView} />
+        {mount && <CityScene progress={progress} active={inView} />}
 
         {/* readability scrims: left column on desktop, bottom on phones */}
         <div className="pointer-events-none absolute inset-y-0 left-0 hidden w-[55%] bg-gradient-to-r from-bg/45 via-bg/15 to-transparent lg:block" />

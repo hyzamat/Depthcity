@@ -20,25 +20,32 @@ const manrope = Manrope({
 // Absolute base for social previews and canonical links; NEXT_PUBLIC_SITE_URL overrides it (e.g. for a staging host).
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://depthcity.hizarc.com";
 
+const title = `${site.name}: ${site.tagline}`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: `${site.name} — ${site.tagline}`,
+  title,
   description: site.description,
+  applicationName: site.name,
   icons: {
-    icon: "/brand/favicon-64.png",
+    icon: [
+      { url: "/brand/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/brand/favicon-64.png", sizes: "64x64", type: "image/png" },
+    ],
     apple: "/brand/apple-touch-icon.png",
   },
   openGraph: {
-    title: `${site.name} — ${site.tagline}`,
+    title,
     description: site.description,
-    images: [{ url: "/media/hero-skyline-sunset-1600.webp", width: 1600, height: 900 }],
+    images: [{ url: "/brand/og.jpg", width: 1200, height: 630, alt: `${site.name} — ${site.motto}` }],
     type: "website",
+    siteName: site.name,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — ${site.tagline}`,
+    title,
     description: site.description,
-    images: ["/media/hero-skyline-sunset-1600.webp"],
+    images: ["/brand/og.jpg"],
   },
 };
 

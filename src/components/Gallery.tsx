@@ -32,7 +32,7 @@ export default function Gallery() {
         <SectionHeading
           eyebrow="Everything you can build"
           title="Landmarks from everywhere. Districts of your own."
-          lede="Amusement parks, airports, nuclear plants, castles, mountains, beach resorts, army bases, the Eiffel Tower next to a space center. 181 pieces and counting."
+          lede="The Skyreach Tower, the Iron Lattice Tower, a samurai castle, beach resorts, a shipping dock, a football stadium — and mega projects from a zoo to a billion-dollar games studio. 170+ buildings across 11 categories."
           gradient="sky"
         />
 
@@ -51,7 +51,7 @@ export default function Gallery() {
                     name={g.src}
                     alt={g.caption}
                     className="h-full w-full object-cover transition-transform duration-[1.6s] ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-[1.06]"
-                    sizes={g.span ? "(min-width: 768px) 50vw, 100vw" : "(min-width: 768px) 25vw, 50vw"}
+                    sizes={g.span ? "(min-width: 1280px) 616px, (min-width: 768px) 50vw, 100vw" : "(min-width: 1280px) 300px, (min-width: 768px) 25vw, 50vw"}
                   />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent p-3 pt-10 transition duration-500 md:translate-y-2 md:p-5 md:pt-14 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100">
                     <div className="font-display text-[10px] font-bold leading-snug text-white sm:text-xs md:text-sm">{g.caption}</div>

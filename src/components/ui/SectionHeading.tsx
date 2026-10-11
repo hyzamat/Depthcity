@@ -12,7 +12,7 @@ export default function SectionHeading({
   title: string;
   lede?: string;
   align?: "left" | "center";
-  gradient?: "gold" | "sky" | "aurora" | "ember" | "none";
+  gradient?: "gold" | "sky" | "aurora" | "ember" | "rose" | "none";
   className?: string;
 }) {
   const grad = gradient === "none" ? "" : `text-gradient-${gradient}`;
