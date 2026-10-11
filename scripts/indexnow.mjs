@@ -1,5 +1,5 @@
 // Tell IndexNow search engines (Bing, Yandex, Seznam, Naver…) that the site's pages changed. Run after a deploy:
-//   node scripts/indexnow.mjs
+//   npm run build && node scripts/indexnow.mjs
 // The key is the 32-hex-character file in public/ (served at the site root, which proves we own the host).
 // Google does not use IndexNow: for Google, submit the sitemap in Search Console.
 import { readdirSync, readFileSync } from "node:fs";
@@ -11,7 +11,8 @@ const keyFile = readdirSync(publicDir).find((f) => /^[0-9a-f]{32}\.txt$/.test(f)
 if (!keyFile) throw new Error("no IndexNow key file in public/");
 const key = readFileSync(publicDir + keyFile, "utf8").trim();
 
-const sitemap = await (await fetch(`https://${HOST}/sitemap.xml`)).text();
+// the URL list comes from the built sitemap (out/sitemap.xml), the same file the live site serves
+const sitemap = readFileSync(fileURLToPath(new URL("../out/sitemap.xml", import.meta.url)), "utf8");
 const urlList = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
 
 const res = await fetch("https://api.indexnow.org/indexnow", {
