@@ -26,10 +26,10 @@ export const site = {
     wishlist: "",
     playStore: "",
     appStore: "",
-    youtube: "",
+    youtube: "https://www.youtube.com/channel/UCKEboiAx3RlNnGgybci8lng",
     discord: "",
     twitter: "",
-    instagram: "",
+    instagram: "https://www.instagram.com/depthcitygame/",
     email: "",
   },
 };
@@ -45,6 +45,16 @@ export const seo = {
   description:
     "DEPTH CITY (DepthCity) is an open-world city building game for Android, iOS and PC: build a city, walk it as the Mayor in avatar mode and defend it in war.",
   alternateNames: ["DepthCity", "Depth City", "DEPTH CITY: Build & Defend"],
+  /**
+   * The search-result picture: the whole built city from above (a frame of the Day & Night video). Shown on the page
+   * (FAQ section), as og:image (with the logo) and as the structured-data image in Google's 16:9, 4:3 and 1:1 ratios.
+   */
+  topView: {
+    name: "city-top-view",
+    alt: "DEPTH CITY top view: a whole island city built in the game, seen from above — skyscrapers, a road grid, a football stadium, a theme park, a river and forests",
+    og: "/brand/og-city.jpg",
+    crops: ["/media/city-top-view-16x9.jpg", "/media/city-top-view-4x3.jpg", "/media/city-top-view-1x1.jpg"],
+  },
   /** one line on what the game is, reused by the visible footer line and llms.txt */
   genreLine: "an open-world city building game with an avatar Mayor mode and war, for Android, iPhone, iPad and Windows PC",
   keywords: [

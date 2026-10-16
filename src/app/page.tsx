@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     url: "/",
     title: seo.title,
     description: seo.description,
-    images: [{ url: "/brand/og.jpg", width: 1200, height: 630, alt: `${site.name} — ${site.motto}` }],
+    images: [{ url: seo.topView.og, width: 1200, height: 630, alt: seo.topView.alt }],
     type: "website",
     siteName: site.name,
     locale: "en_US",

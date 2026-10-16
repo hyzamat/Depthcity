@@ -12,7 +12,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "weekly",
       priority: 1,
-      images: [`${seo.url}/brand/og.jpg`, `${seo.url}/media/hero-skyline-1600.webp`],
+      images: [
+        ...seo.topView.crops.map((c) => `${seo.url}${c}`),
+        `${seo.url}${seo.topView.og}`,
+        `${seo.url}/media/island-sea-1600.webp`,
+        `${seo.url}/media/hero-skyline-1600.webp`,
+      ],
       videos: [
         {
           title: "DEPTH CITY — Official Trailer",

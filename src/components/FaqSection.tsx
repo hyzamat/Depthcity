@@ -1,5 +1,6 @@
+import Img from "./ui/Img";
 import { Reveal, SplitWords } from "./ui/Reveal";
-import { faq } from "@/content/site";
+import { faq, seo, site } from "@/content/site";
 
 /**
  * Plain questions and answers about the game. Native <details>, so every answer is in the HTML for search engines
@@ -19,7 +20,23 @@ export default function FaqSection() {
           </h2>
         </div>
 
-        <div className="mt-12 flex flex-col gap-3">
+        {/* the whole city from above: the picture search engines show for the site (seo.topView) */}
+        <Reveal as="div" className="mt-12" amount={0.2}>
+          <figure className="overflow-hidden rounded-[1.5rem] ring-glow">
+            <Img
+              name={seo.topView.name}
+              alt={seo.topView.alt}
+              className="aspect-video h-auto w-full object-cover"
+              sizes="(min-width: 960px) 896px, 100vw"
+            />
+            <figcaption className="card !rounded-none !border-x-0 !border-b-0 px-5 py-3 text-xs text-muted md:px-7">
+              <span className="font-display tracking-[0.2em] text-gold">TOP VIEW</span> · A whole {site.name} city from
+              above, built in the game: towers, roads, a stadium, a theme park and a river.
+            </figcaption>
+          </figure>
+        </Reveal>
+
+        <div className="mt-8 flex flex-col gap-3">
           {faq.map((item, i) => (
             <Reveal key={item.q} delay={Math.min(i, 4)}>
               <details className="faq card group px-5 py-1 md:px-7" open={i === 0}>

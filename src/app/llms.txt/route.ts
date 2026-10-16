@@ -47,10 +47,11 @@ ${faq.map((f) => `### ${f.q}\n\n${f.a}`).join("\n\n")}
 
 - [Official website](${seo.url}/): trailer, gameplay, features and the launch mailing list
 - [Official trailer (MP4, 96 s)](${seo.url}/media/trailer/official-1080.mp4)
+- [Top view of a DEPTH CITY island city (image)](${seo.url}${seo.topView.crops[0]})
 - [Support](${seo.url}/support/)
 - [Privacy policy](${seo.url}/privacy/)
 - [${seo.studio.name}](${seo.studio.url})
-${links.map(([name, href]) => `- [${name}](${href})`).join("\n")}
+${links.map(([key, href]) => `- [${site.name} on ${LINK_NAMES[key] ?? key}](${href})`).join("\n")}
 `;
   return new Response(md.replace(/\n{3,}/g, "\n\n"), {
     headers: { "Content-Type": "text/plain; charset=utf-8" },
