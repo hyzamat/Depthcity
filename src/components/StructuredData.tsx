@@ -1,12 +1,15 @@
-import { seo, site } from "@/content/site";
+import { faq, seo, site } from "@/content/site";
 
 /**
  * schema.org structured data for the home page: the website (its name and alternate spellings are what Google
  * shows as the site name), the game itself, its trailer, and the studio — the same @id hizarc.com publishes, so
- * search engines can tie DEPTH CITY to HIZARC Games. Only facts that are true today: no price, no ratings.
+ * search engines can tie DEPTH CITY to HIZARC Games — plus the FAQ shown on the page. Only facts that are true
+ * today: no price, no ratings.
  */
 export default function StructuredData() {
   const url = `${seo.url}/`;
+  // the game's own profiles (YouTube, Instagram, store pages…) once they are filled in, so they join to this game
+  const profiles = Object.values(site.links).filter((l) => l.startsWith("http"));
   const graph = {
     "@context": "https://schema.org",
     "@graph": [
@@ -21,13 +24,19 @@ export default function StructuredData() {
         publisher: { "@id": seo.studio.id },
       },
       {
-        "@type": "WebPage",
+        "@type": ["WebPage", "FAQPage"],
         "@id": `${url}#webpage`,
         url,
         name: seo.title,
         description: seo.description,
         isPartOf: { "@id": `${url}#website` },
         about: { "@id": `${url}#game` },
+        // the home page carries the FAQ section, so it is also the FAQPage
+        mainEntity: faq.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
         primaryImageOfPage: { "@id": `${url}#image` },
         inLanguage: "en",
       },
@@ -48,15 +57,26 @@ export default function StructuredData() {
         url,
         description: site.description,
         image: [`${seo.url}/brand/og.jpg`, `${seo.url}/media/hero-skyline-1600.webp`],
-        genre: ["City builder", "Simulation", "Strategy"],
-        gamePlatform: ["Android", "iOS", "Windows"],
-        operatingSystem: "Android, iOS, Windows",
+        genre: ["City-building game", "Open world", "Simulation", "Strategy", "War"],
+        keywords: seo.keywords.join(", "),
+        gamePlatform: ["Android", "iOS", "iPadOS", "Windows PC"],
+        operatingSystem: "Android, iOS, iPadOS, Windows",
         applicationCategory: "Game",
         playMode: "SinglePlayer",
+        featureList: [
+          "Open-world city building: build from above, then walk, drive and fly through your own city",
+          "Avatar Mayor mode with interiors, a mansion, a wedding and a family",
+          "War against nine rival nations: invasions, air and missile defence, raids, colonies",
+          "170+ buildings in 11 categories and 125 city levels",
+          "Economy with taxes, 21 policies, research, debt and austerity",
+          "Day and night, four seasons, monsoon, eight city events and seven disasters",
+          "Plays offline, no ads, no in-app purchases",
+        ],
         inLanguage: "en",
         author: { "@type": "Person", name: site.creator.name },
         publisher: { "@id": seo.studio.id },
         trailer: { "@id": `${url}#trailer` },
+        ...(profiles.length ? { sameAs: profiles } : {}),
       },
       {
         "@type": "VideoObject",

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import LegalPage from "@/components/LegalPage";
-import { site } from "@/content/site";
+import { analytics, site } from "@/content/site";
 
 export const metadata: Metadata = {
   title: `Privacy Policy — ${site.name}`,
@@ -103,6 +103,13 @@ export default function PrivacyPage() {
           analytics, advertising or tracking cookies of its own. It is hosted on GitHub Pages, which may log basic request data (such
           as IP addresses) for security.
         </li>
+        {analytics.umamiWebsiteId && (
+          <li>
+            <strong>Visit statistics:</strong> we count visits with <strong>Umami</strong>, which uses no cookies and does not store
+            your IP address. It records the page, the referring site, your browser, device type and approximate location (country,
+            region and city), and we only see these as totals.
+          </li>
+        )}
       </ul>
 
       <h2>4. How we use data</h2>

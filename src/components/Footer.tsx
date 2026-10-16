@@ -121,12 +121,12 @@ const SOCIAL: { key: keyof typeof site.links; label: string }[] = [
           ))}
         </nav>
         <p className="mt-6 max-w-3xl text-xs leading-relaxed text-white/55">
-          {site.name} (DepthCity) is an island city-building game by{" "}
+          {site.name} (DepthCity) is {seo.genreLine}, by{" "}
           <a href={seo.studio.url} className="text-white/75 underline-offset-4 hover:text-white hover:underline">
             {seo.studio.name}
           </a>
-          , a game studio in {seo.studio.place}. Build a city, run its economy, live as the Mayor and defend it from rival
-          nations — coming soon to Android, iPhone, iPad and Windows.
+          , a game studio in {seo.studio.place}. Build a city, run its economy, walk it as the Mayor and defend it from
+          rival nations — coming soon.
         </p>
         <div className="mt-4 flex flex-col gap-2 text-xs text-white/40 md:flex-row md:items-center md:justify-between">
           <span>© {new Date().getFullYear()} {site.company}. {site.name}. Made with passion by {site.creator.name}.</span>

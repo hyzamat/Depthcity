@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Orbitron, Manrope } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
-import { seo, site } from "@/content/site";
+import { analytics, seo, site } from "@/content/site";
 
 const orbitron = Orbitron({
   subsets: ["latin"],
@@ -80,7 +81,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${orbitron.variable} ${manrope.variable}`}>
       {/* Native scrolling: scroll-linked animations follow the page directly, with no smoothing lag. */}
-      <body>{children}</body>
+      <body>
+        {children}
+        {/* Cookie-free visitor stats (~2 KB); see `analytics` in src/content/site.ts */}
+        {analytics.umamiWebsiteId && (
+          <Script
+            src="https://cloud.umami.is/script.js"
+            data-website-id={analytics.umamiWebsiteId}
+            data-domains={analytics.domains}
+            strategy="afterInteractive"
+          />
+        )}
+      </body>
     </html>
   );
 }

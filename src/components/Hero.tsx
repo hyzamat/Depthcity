@@ -63,7 +63,7 @@ export default function Hero() {
         <h1 className="intro mt-5" style={{ "--d": "0.35s" } as CSSProperties}>
           {/* the wordmark is the visible heading; this is the same name as text for search engines and screen readers */}
           <span className="sr-only">
-            {site.name}: {site.tagline} — an island city builder game by {seo.studio.name}
+            {site.name} (DepthCity): {site.tagline} — {seo.genreLine}, by {seo.studio.name}
           </span>
           <img
             src="/brand/wordmark-1200.webp"

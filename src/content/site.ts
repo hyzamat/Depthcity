@@ -10,7 +10,7 @@ export const site = {
   /** the line under the wordmark on the title screen */
   motto: "BUILD • EXPAND • DEFEND • CONQUER",
   description:
-    "DEPTH CITY is an island city builder with a real economy, a living world and a war to win. Build your city, run it as the Mayor, and defend it when rival nations come from the sea. Coming soon to Android, iPhone, iPad and Windows.",
+    "DEPTH CITY is an open-world city building game with a real economy, a living world and a war to win. Build your island city, step into it as the Mayor and walk, drive and fly through the streets you built, and defend it when rival nations come from the sea. Coming soon to Android, iPhone, iPad and Windows PC.",
   status: "Version 1.0 · Coming soon to Android, iOS & Windows",
   company: "HIZARC",
   supportEmail: "hizarcgames@hizarc.com",
@@ -36,18 +36,23 @@ export const site = {
 
 /**
  * Search: the game's name is searched as "DEPTH CITY", "Depth City" and "depthcity" (the domain), so all three
- * spellings appear in the title/description, the structured data and the visible footer line.
+ * spellings appear in the title/description, the structured data and the visible footer line. The genre people
+ * search for — "city building game", "open world city building game" — leads the title and description.
  */
 export const seo = {
   url: "https://depthcity.hizarc.com",
-  title: "DEPTH CITY (DepthCity): Build & Defend | HIZARC Games",
+  title: "DEPTH CITY – Open-World City Building Game | Android, iOS & PC",
   description:
-    "DEPTH CITY (DepthCity) by HIZARC Games: build an island city, run its economy, live as the Mayor and defend it from rival nations. Coming to Android, iOS and Windows.",
+    "DEPTH CITY (DepthCity) is an open-world city building game for Android, iOS and PC: build a city, walk it as the Mayor in avatar mode and defend it in war.",
   alternateNames: ["DepthCity", "Depth City", "DEPTH CITY: Build & Defend"],
+  /** one line on what the game is, reused by the visible footer line and llms.txt */
+  genreLine: "an open-world city building game with an avatar Mayor mode and war, for Android, iPhone, iPad and Windows PC",
   keywords: [
     "DEPTH CITY", "DepthCity", "Depth City game", "Depth City: Build & Defend", "HIZARC", "HIZARC Games",
-    "city builder", "city building game", "island city builder", "city builder mobile", "strategy", "simulation",
-    "Android", "iOS", "Windows",
+    "city building game", "open world city building game", "open-world city builder", "best city building game",
+    "city builder with war", "city building game with avatar", "city builder where you can walk around",
+    "city builder Android", "city builder iOS", "city builder PC", "offline city builder", "city builder no ads",
+    "island city builder", "Mayor simulator", "strategy", "simulation", "Android", "iOS", "Windows",
   ],
   /** the studio — the same identity hizarc.com publishes, so search engines join the game to the company */
   studio: {
@@ -61,6 +66,17 @@ export const seo = {
   googleSiteVerification: "",
   /** Bing Webmaster Tools → "HTML Meta Tag" verification code (optional). */
   bingSiteVerification: "",
+};
+
+/**
+ * Visitor stats: Umami Cloud (free Hobby plan). Cookie-free, so no consent banner; the dashboard shows visitors, pages,
+ * referrers, devices, countries, regions and cities. Paste the Website ID from cloud.umami.is → Settings → Websites.
+ * Leave empty to load no script at all.
+ */
+export const analytics = {
+  umamiWebsiteId: "",
+  /** only visits on these hosts are counted, so local and LAN previews stay out of the numbers */
+  domains: "depthcity.hizarc.com",
 };
 
 export const hero = {
@@ -328,4 +344,52 @@ export const gallery: { src: string; caption: string; span?: "big" | "wide" }[] 
   { src: "lm-shipping-dock", caption: "Shipping Dock in winter" },
   { src: "lm-stadium-autumn", caption: "Football Stadium" },
   { src: "lm-financial-center", caption: "Financial Center" },
+];
+
+/**
+ * Questions people (and AI assistants) ask about the game. Shown as the FAQ section, published as FAQPage
+ * structured data and in /llms.txt — so every answer must stay true to the current build. Keep each answer
+ * self-contained: search engines and chat assistants quote them one at a time.
+ */
+export const faq: { q: string; a: string }[] = [
+  {
+    q: "What is DEPTH CITY?",
+    a: "DEPTH CITY (also written DepthCity) is an open-world city building game by HIZARC Games for Android, iPhone, iPad and Windows PC. You build an island city from bare land, run its economy, step into it as the Mayor to walk, drive and fly through the streets you built, and defend it when rival nations invade from the sea.",
+  },
+  {
+    q: "Is DEPTH CITY an open-world city building game?",
+    a: "Yes. You build from above like a classic city builder, then drop the Mayor anywhere in the city — a street, a rooftop, a mountain, even the roof of a moving train — and explore it freely on foot, by car, by helicopter or by plane. Shops, homes, the Town Hall and the Mayor Mansion have interiors you can walk into.",
+  },
+  {
+    q: "What is the best city building game with an avatar mode and war?",
+    a: "DEPTH CITY is built for exactly that mix. It is a full city builder (170+ buildings in 11 categories, 125 city levels, taxes, policies and research), an avatar game where you live as the Mayor — walk, drive, fly, find love and hold a wedding — and a war game against nine rival nations with invasions, air defence, jets, bombers and missiles. It is coming to Android, iOS and PC.",
+  },
+  {
+    q: "Which platforms is DEPTH CITY on?",
+    a: "DEPTH CITY 1.0 is built for Android phones and tablets, iPhone, iPad and Windows PC. It plays in portrait or landscape, and it plays offline.",
+  },
+  {
+    q: "When is DEPTH CITY coming out?",
+    a: "Version 1.0 is finished and coming soon. Leave your email on depthcity.hizarc.com to hear about the closed test, the Google Play and App Store pages and the launch.",
+  },
+  {
+    q: "How does war work in DEPTH CITY?",
+    a: "Nine rival nations share the world map, each with its own treasury, resources and army. Once you arm your city, invaders land on your beaches with helicopters and jets overhead. You defend with radar, air defence and missile defence batteries and a Technology Tower shield, then raid them back with troops, named jets and bombers, missiles or a nuke. Bring down their Town Hall and half their city and they surrender as your colony.",
+  },
+  {
+    q: "Can I walk around my own city?",
+    a: "Yes — that is the Mayor mode. Walk your own streets, drive your cars, fly planes and helicopters, ride the metro, walk into shops and homes, buy a house or build the Mayor Mansion, propose, hold a wedding on the plaza and take the family out. The Mayor can even fight alongside your army during an invasion.",
+  },
+  {
+    q: "Does DEPTH CITY have ads or in-app purchases?",
+    a: "No. DEPTH CITY has no ads and no in-app purchases, and it plays fully offline. You can share your city with friends using a City ID.",
+  },
+  {
+    q: "What else is in the game?",
+    a: "Day and night, four seasons with spring blossom, monsoon rain, autumn leaves and winter snow, traffic, trains, ships and airliners, a zoo with nineteen animals and wildlife in the forests, eight city events from a farmers market to a stadium concert and a fireworks show, and seven kinds of disaster including tornadoes, fires and a volcano.",
+  },
+  {
+    q: "Who makes DEPTH CITY?",
+    a: "DEPTH CITY is made by Shainal Badusha, a solo developer and IT engineer, at HIZARC Games in Kozhikode (Calicut), Kerala, India. It is built in Unity.",
+  },
 ];

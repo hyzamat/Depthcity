@@ -17,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         {
           title: "DEPTH CITY — Official Trailer",
           thumbnail_loc: `${seo.url}/media/trailer/official-poster.webp`,
-          description: "The official trailer for DEPTH CITY, recorded in the game.",
+          description: "The official trailer for DEPTH CITY, an open-world city building game with war, recorded in the game.",
           content_loc: `${seo.url}/media/trailer/official-1080.mp4`,
           duration: 96,
         },
