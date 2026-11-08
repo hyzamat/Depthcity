@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/privacy/" },
 };
 
-const UPDATED = "11 October 2026";
+const UPDATED = "8 November 2026";
 
 export default function PrivacyPage() {
   const mail = `mailto:${site.supportEmail}`;
@@ -91,8 +91,8 @@ export default function PrivacyPage() {
       <h2>3. Data this website handles</h2>
       <ul>
         <li>
-          <strong>&quot;Notify me&quot; form:</strong> your email address, so we can tell you about the closed test, the store pages
-          and the launch. Nothing else is sent to that address.
+          <strong>&quot;Notify me&quot; form:</strong> your email address, so we can tell you when the Windows PC version is ready and
+          about big updates to the game. Nothing else is sent to that address.
         </li>
         <li>
           <strong>Contact form:</strong> your name and message, and the email address and phone number if you choose to give them, so
@@ -116,7 +116,7 @@ export default function PrivacyPage() {
       <ul>
         <li>To run the game&apos;s online features (the anonymous account, and uploading and downloading cities).</li>
         <li>To detect, investigate and fix crashes, freezes and performance problems.</li>
-        <li>To answer your messages and to send the launch news you asked for.</li>
+        <li>To answer your messages and to send the game news you asked for.</li>
       </ul>
       <p>We do not use your data for advertising, we do not build advertising profiles, and we do not sell your data.</p>
 
@@ -159,8 +159,8 @@ export default function PrivacyPage() {
           <strong>Diagnostics:</strong> kept by Unity for the period described in Unity&apos;s privacy policy.
         </li>
         <li>
-          <strong>Website form entries:</strong> until the game has launched and your message is answered, or until you ask us to
-          delete them.
+          <strong>Website form entries:</strong> messages until they are answered; &quot;Notify me&quot; emails until you tell us you no
+          longer want game news. You can ask us to delete either at any time.
         </li>
       </ul>
 

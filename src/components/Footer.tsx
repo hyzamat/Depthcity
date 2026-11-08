@@ -7,6 +7,7 @@ import Img from "./ui/Img";
 import { LEGAL_LINKS } from "./LegalPage";
 import { Reveal, SplitWords } from "./ui/Reveal";
 import Magnetic from "./ui/Magnetic";
+import StoreButtons from "./StoreButtons";
 import { seo, site } from "@/content/site";
 
 const SOCIAL: { key: keyof typeof site.links; label: string }[] = [
@@ -46,23 +47,30 @@ const SOCIAL: { key: keyof typeof site.links; label: string }[] = [
     return (
       <footer id="follow" className="relative overflow-hidden bg-bg">
         {/* closing image */}
-        <div className="relative h-[70svh] min-h-[480px]">
+        <div id="download" className="relative h-[86svh] min-h-[620px] scroll-mt-0">
           <Img name="night-skyline" alt="The DEPTH CITY skyline at night, the Skyreach Tower lit against the stars" className="h-full w-full object-cover object-[50%_60%]" portrait sizes="100vw" />
           <div className="absolute inset-0 bg-gradient-to-b from-bg via-bg/30 to-bg" />
           <div className="absolute inset-0 flex items-center justify-center px-6 text-center">
             <div className="max-w-2xl">
               <Reveal as="p" className="eyebrow mb-4">
-                Coming soon
+                Out now
               </Reveal>
               <h2 className="h-display text-[clamp(2.2rem,6vw,5rem)] text-white">
-                <SplitWords text="Be there when the first road is laid." />
+                <SplitWords text="Lay the first road today." />
               </h2>
               <Reveal as="p" className="lede mx-auto mt-6 max-w-lg !text-white/75" delay={2}>
-                Version 1.0 is built for Android, iPhone, iPad and Windows. Leave your email and you’ll hear about the
-                closed test, the store pages and the launch — nothing else.
+                {site.name} is out on Google Play and the App Store for Android phones and tablets, iPhone and iPad. Buy it once:
+                no ads, no in-app purchases.
               </Reveal>
-  
-              <Reveal className="mx-auto mt-8 max-w-md" delay={3}>
+
+              <Reveal className="mt-8" delay={3}>
+                <StoreButtons />
+              </Reveal>
+
+              <Reveal as="p" className="mx-auto mt-10 max-w-md text-sm text-white/65" delay={3}>
+                Playing on PC? The Windows version is coming soon. Leave your email to hear when it is ready, and about big updates.
+              </Reveal>
+              <Reveal className="mx-auto mt-4 max-w-md" delay={3}>
                 <form
                   className="glass flex items-center gap-2 rounded-full p-1.5 pl-5"
                   onSubmit={handleSubmit}
@@ -126,7 +134,15 @@ const SOCIAL: { key: keyof typeof site.links; label: string }[] = [
             {seo.studio.name}
           </a>
           , a game studio in {seo.studio.place}. Build a city, run its economy, walk it as the Mayor and defend it from
-          rival nations — coming soon.
+          rival nations — out now on{" "}
+          <a href={site.links.playStore} target="_blank" rel="noopener" className="text-white/75 underline-offset-4 hover:text-white hover:underline">
+            Google Play
+          </a>{" "}
+          and the{" "}
+          <a href={site.links.appStore} target="_blank" rel="noopener" className="text-white/75 underline-offset-4 hover:text-white hover:underline">
+            App Store
+          </a>
+          .
         </p>
         <div className="mt-4 flex flex-col gap-2 text-xs text-white/40 md:flex-row md:items-center md:justify-between">
           <span>© {new Date().getFullYear()} {site.company}. {site.name}. Made with passion by {site.creator.name}.</span>

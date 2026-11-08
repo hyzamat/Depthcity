@@ -205,6 +205,42 @@ body {
   background: rgba(255, 255, 255, 0.09);
   transform: translateY(-2px);
 }
+/* App Store / Google Play buttons (StoreButtons.tsx): the stores' black badge shape, not the site's pill buttons */
+.store-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 8.6rem;
+  height: 3.2rem;
+  padding: 0 0.9rem 0 0.75rem;
+  border-radius: 0.8rem;
+  color: #fff;
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  box-shadow: 0 12px 30px -14px rgba(0, 0, 0, 0.9);
+  transition:
+    transform 0.4s var(--ease-out-expo),
+    border-color 0.3s,
+    background 0.3s;
+  touch-action: manipulation;
+}
+/* two side by side on a 360 px phone; full badge size from the small-tablet breakpoint up */
+@media (min-width: 640px) {
+  .store-badge {
+    gap: 0.7rem;
+    min-width: 10.5rem;
+    height: 3.5rem;
+    padding: 0 1.1rem 0 0.95rem;
+  }
+}
+.store-badge:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.6);
+  background: #0b0b0b;
+}
+.store-badge:active {
+  transform: scale(0.97);
+}
 
 /* ---- hero intro: plain CSS, so the hero is in the server HTML and animates in before any script runs ---- */
 .intro {
@@ -380,7 +416,7 @@ body {
 .legal li {
   margin: 0.35rem 0;
 }
-.legal a:not(.btn) {
+.legal a:not(.btn, .store-badge, .card) {
   color: var(--color-sky);
   text-decoration: underline;
   text-underline-offset: 3px;

@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { site } from "@/content/site";
 import SoundToggle from "./sound/SoundToggle";
@@ -18,10 +18,30 @@ const LINKS = [
   { href: "#contact", label: "Contact" },
 ];
 
+/**
+ * "Get the game" goes straight to this device's store (Google Play on Android, the App Store on iPhone and iPad), and to
+ * the download panel at the end of the page everywhere else. Decided after hydration, so the server HTML keeps the anchor.
+ */
+function deviceStoreHref() {
+  const ua = navigator.userAgent;
+  // iPadOS reports itself as a Mac; touch points tell them apart
+  const ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  if (/Android/i.test(ua) && site.links.playStore) return site.links.playStore;
+  if (ios && site.links.appStore) return site.links.appStore;
+  return "#download";
+}
+const noSubscribe = () => () => {};
+
+function useStoreHref() {
+  return useSyncExternalStore(noSubscribe, deviceStoreHref, () => "#download");
+}
+
 export default function Nav() {
   const { scrollY } = useScroll();
   const [solid, setSolid] = useState(false);
   const [open, setOpen] = useState(false);
+  const storeHref = useStoreHref();
+  const external = storeHref.startsWith("http") ? { target: "_blank", rel: "noopener" } : {};
   useMotionValueEvent(scrollY, "change", (y) => setSolid(y > 40));
 
   useEffect(() => {
@@ -69,8 +89,12 @@ export default function Nav() {
 
           <div className="flex items-center gap-2">
             <SoundToggle />
-            <a href="#follow" className="btn btn-primary hidden !px-5 !py-2.5 md:inline-flex active:scale-95 touch-manipulation">
-              Get notified
+            <a
+              href={storeHref}
+              {...external}
+              className="btn btn-primary !gap-2 !px-4 !py-2.5 !text-[10px] !tracking-[0.14em] sm:!px-5 sm:!text-[0.78rem] sm:!tracking-[0.18em] active:scale-95 touch-manipulation"
+            >
+              Get the game
             </a>
             <button
               onClick={() => {
@@ -119,8 +143,8 @@ export default function Nav() {
                 </motion.li>
               ))}
             </ul>
-            <a href="#follow" onClick={() => setOpen(false)} className="btn btn-primary mt-8 justify-center">
-              Get notified · Coming soon
+            <a href={storeHref} {...external} onClick={() => setOpen(false)} className="btn btn-primary mt-8 justify-center">
+              Get the game · Out now
             </a>
           </motion.div>
         )}

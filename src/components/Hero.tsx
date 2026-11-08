@@ -8,6 +8,7 @@ import Magnetic from "./ui/Magnetic";
 import { pad } from "./ui/scrollRange";
 import { hero, seo, site } from "@/content/site";
 import TrailerButton from "./TrailerButton";
+import StoreButtons from "./StoreButtons";
 import SoundZone from "./sound/SoundZone";
 import { useSoundEnabled } from "./sound/SoundProvider";
 import { sound } from "@/lib/sound/engine";
@@ -87,21 +88,25 @@ export default function Hero() {
           {hero.pitch}
         </p>
 
-        <div className="intro mt-9 flex flex-col items-center gap-3 sm:flex-row" style={{ "--d": "0.85s" } as CSSProperties}>
-          <Magnetic>
-            <TrailerButton />
-          </Magnetic>
-          <Magnetic>
-            <a href="#city" className="btn btn-ghost !bg-[rgba(6,9,15,0.55)] hover:!bg-[rgba(6,9,15,0.75)]">
-              Explore the city
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden>
-                <path d="M12 5v14M5 12l7 7 7-7" />
-              </svg>
-            </a>
-          </Magnetic>
+        {/* the game is out: the store buttons lead, the trailer and the scroll tour follow */}
+        <div className="intro mt-8 flex flex-col items-center gap-4" style={{ "--d": "0.85s" } as CSSProperties}>
+          <StoreButtons />
+          <div className="flex items-center gap-3">
+            <Magnetic>
+              <TrailerButton className="btn btn-primary !px-5 !py-3" />
+            </Magnetic>
+            <Magnetic className="hidden sm:block">
+              <a href="#city" className="btn btn-ghost !bg-[rgba(6,9,15,0.55)] !px-5 !py-3 hover:!bg-[rgba(6,9,15,0.75)]">
+                Explore the city
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden>
+                  <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>
+              </a>
+            </Magnetic>
+          </div>
         </div>
 
-        <div className="intro mt-10 flex flex-wrap items-center justify-center gap-2" style={{ "--d": "1.1s" } as CSSProperties}>
+        <div className="intro mt-7 flex flex-wrap items-center justify-center gap-2" style={{ "--d": "1.1s" } as CSSProperties}>
           <div className="glass inline-flex items-center gap-2 rounded-full px-4 py-2 text-[11px] tracking-[0.22em] text-white/80">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-green" />
             {site.status.toUpperCase()}

@@ -54,6 +54,8 @@ export const metadata: Metadata = {
     apple: "/brand/apple-touch-icon.png",
   },
   verification,
+  // Safari on iPhone and iPad shows its own "Get" banner for the game at the top of the page
+  itunes: { appId: site.appStoreId },
   openGraph: {
     title: seo.title,
     description: seo.description,
@@ -62,10 +64,9 @@ export const metadata: Metadata = {
     siteName: site.name,
     locale: "en_US",
   },
+  // no title or description here: X falls back to each page's og:title / og:description, so the guide links keep theirs
   twitter: {
     card: "summary_large_image",
-    title: seo.title,
-    description: seo.description,
     images: [seo.topView.og],
   },
 };

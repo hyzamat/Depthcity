@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { seo } from "@/content/site";
+import { guide, seo } from "@/content/site";
 
 export const dynamic = "force-static";
 
@@ -28,6 +28,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       ],
     },
+    { url: `${seo.url}/guide/`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    // the guide PDFs themselves, so search engines index their text in all four languages
+    ...guide.languages.map((l) => ({ url: `${seo.url}${l.file}`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.4 })),
     { url: `${seo.url}/support/`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
     { url: `${seo.url}/privacy/`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: `${seo.url}/delete-data/`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },

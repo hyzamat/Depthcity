@@ -4,12 +4,16 @@ import { faq, seo, site } from "@/content/site";
  * schema.org structured data for the home page: the website (its name and alternate spellings are what Google
  * shows as the site name), the game itself, its trailer, and the studio — the same @id hizarc.com publishes, so
  * search engines can tie DEPTH CITY to HIZARC Games — plus the FAQ shown on the page. Only facts that are true
- * today: no price, no ratings.
+ * today: the store price and age ratings, no review scores until the stores have them.
  */
 export default function StructuredData() {
   const url = `${seo.url}/`;
   // the game's own profiles (YouTube, Instagram, store pages…) once they are filled in, so they join to this game
   const profiles = Object.values(site.links).filter((l) => l.startsWith("http"));
+  const stores = [
+    { href: site.links.playStore, name: "Google Play", platform: "Android" },
+    { href: site.links.appStore, name: "the App Store", platform: "iOS" },
+  ].filter((s) => s.href);
   const graph = {
     "@context": "https://schema.org",
     "@graph": [
@@ -60,10 +64,22 @@ export default function StructuredData() {
         screenshot: [`${seo.url}${seo.topView.crops[0]}`, `${seo.url}/media/island-sea-1600.webp`, `${seo.url}/media/hero-skyline-1600.webp`],
         genre: ["City-building game", "Open world", "Simulation", "Strategy", "War"],
         keywords: seo.keywords.join(", "),
-        gamePlatform: ["Android", "iOS", "iPadOS", "Windows PC"],
-        operatingSystem: "Android, iOS, iPadOS, Windows",
-        applicationCategory: "Game",
+        // out on Android and iOS; the Windows PC version is still coming (said in the description and FAQ)
+        gamePlatform: ["Android", "iOS", "iPadOS"],
+        operatingSystem: "Android, iOS 15.0 or later, iPadOS",
+        applicationCategory: "GameApplication",
         playMode: "SinglePlayer",
+        installUrl: stores.map((s) => s.href),
+        offers: stores.map((s) => ({
+          "@type": "Offer",
+          url: s.href,
+          name: `${site.name} on ${s.name} (${s.platform})`,
+          price: site.price.amount,
+          priceCurrency: site.price.currency,
+          availability: "https://schema.org/InStock",
+          category: "Paid",
+        })),
+        contentRating: [`${site.ageRating.playStore} (Google Play)`, `${site.ageRating.appStore} (App Store)`],
         featureList: [
           "Open-world city building: build from above, then walk, drive and fly through your own city",
           "Avatar Mayor mode with interiors, a mansion, a wedding and a family",
@@ -71,7 +87,7 @@ export default function StructuredData() {
           "170+ buildings in 11 categories and 125 city levels",
           "Economy with taxes, 21 policies, research, debt and austerity",
           "Day and night, four seasons, monsoon, eight city events and seven disasters",
-          "Plays offline, no ads, no in-app purchases",
+          "Premium: one purchase, no ads, no in-app purchases; plays offline",
         ],
         inLanguage: "en",
         author: { "@type": "Person", name: site.creator.name },

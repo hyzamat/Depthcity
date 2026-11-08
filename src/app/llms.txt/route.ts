@@ -1,4 +1,4 @@
-import { faq, pillars, seo, site, stats, warFeatures } from "@/content/site";
+import { faq, guide, pillars, seo, site, stats, warFeatures } from "@/content/site";
 
 export const dynamic = "force-static";
 
@@ -15,15 +15,21 @@ export function GET() {
   const links = Object.entries(site.links).filter(([, href]) => href.startsWith("http"));
   const md = `# ${site.name}
 
-> ${site.name} (also written DepthCity or Depth City) is ${seo.genreLine}, made by ${seo.studio.name}. Build an island city, run its economy, step into it as the Mayor to walk, drive and fly through the streets you built, and defend it when rival nations invade. ${site.status}.
+> ${site.name} (also written DepthCity or Depth City) is ${seo.genreLine}, made by ${seo.studio.name}. Build an island city, run its economy, step into it as the Mayor to walk, drive and fly through the streets you built, and defend it when rival nations invade.
+
+## Get the game
+
+- [Download on Google Play (Android)](${site.links.playStore})
+- [Download on the App Store (iPhone and iPad)](${site.links.appStore})
 
 ## Key facts
 
 - Name: ${site.name} — full title "${site.name}: ${site.tagline}"; also written ${seo.alternateNames.slice(0, 2).join(" and ")}
 - Genre: open-world city building game, city builder, simulation, strategy, war
-- Platforms: Android phones and tablets, iPhone, iPad, Windows PC
-- Status: ${site.status}
-- Business model: no ads, no in-app purchases; plays offline
+- Platforms: Android phones and tablets (Google Play), iPhone and iPad (App Store, iOS 15.0 or later); Windows PC version coming soon
+- Status: ${site.status} (Google Play and the App Store)
+- Price: premium, one-time purchase — ${site.price.label} in the US on both stores (local prices vary); no ads, no in-app purchases; plays offline
+- Age rating: ${site.ageRating.playStore} on Google Play, ${site.ageRating.appStore} on the App Store
 - Developer: ${site.creator.name} (solo developer, IT engineer) at ${seo.studio.name}, ${seo.studio.place}
 - Engine: Unity
 - Official website: ${seo.url}/
@@ -45,7 +51,9 @@ ${faq.map((f) => `### ${f.q}\n\n${f.a}`).join("\n\n")}
 
 ## Links
 
-- [Official website](${seo.url}/): trailer, gameplay, features and the launch mailing list
+- [Official website](${seo.url}/): trailer, gameplay, features, store links and the news mailing list
+- [${guide.title}](${seo.url}/guide/): a 4-page PDF for reviewers and creators in ${guide.languages.map((l) => l.name).join(", ")}
+${guide.languages.map((l) => `- [${guide.title} (${l.name}, PDF)](${seo.url}${l.file})`).join("\n")}
 - [Official trailer (MP4, 96 s)](${seo.url}/media/trailer/official-1080.mp4)
 - [Top view of a DEPTH CITY island city (image)](${seo.url}${seo.topView.crops[0]})
 - [Support](${seo.url}/support/)

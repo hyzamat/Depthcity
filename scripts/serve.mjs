@@ -12,7 +12,7 @@ const port = +(process.argv[2] ?? process.env.PORT ?? 3000);
 const types = {
   ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".css": "text/css", ".json": "application/json",
   ".png": "image/png", ".webp": "image/webp", ".avif": "image/avif", ".jpg": "image/jpeg", ".svg": "image/svg+xml",
-  ".woff2": "font/woff2", ".ico": "image/x-icon", ".txt": "text/plain", ".mp4": "video/mp4",
+  ".woff2": "font/woff2", ".ico": "image/x-icon", ".txt": "text/plain", ".mp4": "video/mp4", ".pdf": "application/pdf",
 };
 
 createServer(async (req, res) => {

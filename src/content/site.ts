@@ -10,11 +10,18 @@ export const site = {
   /** the line under the wordmark on the title screen */
   motto: "BUILD • EXPAND • DEFEND • CONQUER",
   description:
-    "DEPTH CITY is an open-world city building game with a real economy, a living world and a war to win. Build your island city, step into it as the Mayor and walk, drive and fly through the streets you built, and defend it when rival nations come from the sea. Coming soon to Android, iPhone, iPad and Windows PC.",
-  status: "Version 1.0 · Coming soon to Android, iOS & Windows",
+    "DEPTH CITY is an open-world city building game with a real economy, a living world and a war to win. Build your island city, step into it as the Mayor and walk, drive and fly through the streets you built, and defend it when rival nations come from the sea. Out now on Google Play and the App Store for Android, iPhone and iPad; the Windows PC version is coming soon.",
+  status: "Out now on Android & iOS",
   company: "HIZARC",
   supportEmail: "hizarcgames@hizarc.com",
   androidPackage: "com.hizarc.depthcity",
+  appStoreId: "6828720246",
+  /**
+   * What the store pages say (checked 2026-11-08): a one-time purchase, US$4.99 in the US on both stores (each store shows
+   * its local price). Rated Everyone 10+ on Google Play and 12+ on the App Store. iOS 15.0 or later, iPhone and iPad.
+   */
+  price: { amount: "4.99", currency: "USD", label: "US$4.99" },
+  ageRating: { playStore: "Everyone 10+", appStore: "12+" },
   creator: {
     name: "Shainal Badusha",
     role: "IT Engineer · Solo Developer",
@@ -22,10 +29,11 @@ export const site = {
       "I wanted a city builder that keeps surprising you — the kind where you zoom in at 2 a.m. and find something you were never told about.",
   },
   links: {
-    // Fill these in later — buttons stay visible and say "coming soon" until then.
+    // Empty links are skipped (social buttons say "soon"). The store links are the public listings, not redeem codes:
+    // a promo code works once, for one person.
     wishlist: "",
-    playStore: "",
-    appStore: "",
+    playStore: "https://play.google.com/store/apps/details?id=com.hizarc.depthcity",
+    appStore: "https://apps.apple.com/app/depth-city-build-defend/id6828720246",
     youtube: "https://www.youtube.com/channel/UCKEboiAx3RlNnGgybci8lng",
     discord: "",
     twitter: "",
@@ -41,9 +49,9 @@ export const site = {
  */
 export const seo = {
   url: "https://depthcity.hizarc.com",
-  title: "DEPTH CITY – Open-World City Building Game | Android, iOS & PC",
+  title: "DEPTH CITY – Open-World City Building Game | Android & iOS",
   description:
-    "DEPTH CITY (DepthCity) is an open-world city building game for Android, iOS and PC: build a city, walk it as the Mayor in avatar mode and defend it in war.",
+    "DEPTH CITY (DepthCity) is an open-world city building game, out now on Android and iOS: build a city, walk it as the Mayor in avatar mode and defend it in war.",
   alternateNames: ["DepthCity", "Depth City", "DEPTH CITY: Build & Defend"],
   /**
    * The search-result picture: the whole built city from above (a frame of the Day & Night video). Shown on the page
@@ -56,9 +64,12 @@ export const seo = {
     crops: ["/media/city-top-view-16x9.jpg", "/media/city-top-view-4x3.jpg", "/media/city-top-view-1x1.jpg"],
   },
   /** one line on what the game is, reused by the visible footer line and llms.txt */
-  genreLine: "an open-world city building game with an avatar Mayor mode and war, for Android, iPhone, iPad and Windows PC",
+  genreLine:
+    "an open-world city building game with an avatar Mayor mode and war, out now for Android, iPhone and iPad (Windows PC coming soon)",
   keywords: [
     "DEPTH CITY", "DepthCity", "Depth City game", "Depth City: Build & Defend", "HIZARC", "HIZARC Games",
+    "DEPTH CITY download", "DEPTH CITY Google Play", "DEPTH CITY App Store", "city building game out now",
+    "premium city builder", "city building game iPhone", "city building game Android",
     "city building game", "open world city building game", "open-world city builder", "best city building game",
     "city builder with war", "city building game with avatar", "city builder where you can walk around",
     "city builder Android", "city builder iOS", "city builder PC", "offline city builder", "city builder no ads",
@@ -133,7 +144,7 @@ export const pillars = [
   },
   {
     title: "Play your way",
-    body: "Play offline, any time, with no ads and no in-app purchases. Portrait or landscape, on phone, tablet or PC. Share your city with friends using a City ID.",
+    body: "Play offline, any time, with no ads and no in-app purchases. Portrait or landscape, on phone or tablet, and soon on Windows PC. Share your city with friends using a City ID.",
     accent: "teal",
   },
 ];
@@ -364,7 +375,11 @@ export const gallery: { src: string; caption: string; span?: "big" | "wide" }[] 
 export const faq: { q: string; a: string }[] = [
   {
     q: "What is DEPTH CITY?",
-    a: "DEPTH CITY (also written DepthCity) is an open-world city building game by HIZARC Games for Android, iPhone, iPad and Windows PC. You build an island city from bare land, run its economy, step into it as the Mayor to walk, drive and fly through the streets you built, and defend it when rival nations invade from the sea.",
+    a: "DEPTH CITY (also written DepthCity) is an open-world city building game by HIZARC Games, out now on Google Play for Android and on the App Store for iPhone and iPad, with a Windows PC version coming soon. You build an island city from bare land, run its economy, step into it as the Mayor to walk, drive and fly through the streets you built, and defend it when rival nations invade from the sea.",
+  },
+  {
+    q: "Where can I download DEPTH CITY?",
+    a: "DEPTH CITY: Build & Defend is out now. Android phones and tablets: Google Play, https://play.google.com/store/apps/details?id=com.hizarc.depthcity. iPhone and iPad: the App Store, https://apps.apple.com/app/depth-city-build-defend/id6828720246. The Windows PC version is coming soon.",
   },
   {
     q: "Is DEPTH CITY an open-world city building game?",
@@ -372,15 +387,19 @@ export const faq: { q: string; a: string }[] = [
   },
   {
     q: "What is the best city building game with an avatar mode and war?",
-    a: "DEPTH CITY is built for exactly that mix. It is a full city builder (170+ buildings in 11 categories, 125 city levels, taxes, policies and research), an avatar game where you live as the Mayor — walk, drive, fly, find love and hold a wedding — and a war game against nine rival nations with invasions, air defence, jets, bombers and missiles. It is coming to Android, iOS and PC.",
+    a: "DEPTH CITY is built for exactly that mix. It is a full city builder (170+ buildings in 11 categories, 125 city levels, taxes, policies and research), an avatar game where you live as the Mayor — walk, drive, fly, find love and hold a wedding — and a war game against nine rival nations with invasions, air defence, jets, bombers and missiles. It is out now on Android and iOS, and coming to Windows PC.",
   },
   {
     q: "Which platforms is DEPTH CITY on?",
-    a: "DEPTH CITY 1.0 is built for Android phones and tablets, iPhone, iPad and Windows PC. It plays in portrait or landscape, and it plays offline.",
+    a: "DEPTH CITY is out on Android phones and tablets (Google Play) and on iPhone and iPad (App Store, iOS 15 or later). A Windows PC version is coming soon. It plays in portrait or landscape, and it plays offline.",
   },
   {
-    q: "When is DEPTH CITY coming out?",
-    a: "Version 1.0 is finished and coming soon. Leave your email on depthcity.hizarc.com to hear about the closed test, the Google Play and App Store pages and the launch.",
+    q: "Is DEPTH CITY out now?",
+    a: "Yes. DEPTH CITY: Build & Defend is out now on Google Play and the App Store. The Windows PC version is coming soon; leave your email on depthcity.hizarc.com to hear when it is ready.",
+  },
+  {
+    q: "How much does DEPTH CITY cost?",
+    a: "DEPTH CITY is a premium game: you buy it once (US$4.99 in the United States; Google Play and the App Store show the price in your local currency) and get the whole game, with no ads and no in-app purchases.",
   },
   {
     q: "How does war work in DEPTH CITY?",
@@ -392,7 +411,7 @@ export const faq: { q: string; a: string }[] = [
   },
   {
     q: "Does DEPTH CITY have ads or in-app purchases?",
-    a: "No. DEPTH CITY has no ads and no in-app purchases, and it plays fully offline. You can share your city with friends using a City ID.",
+    a: "No. DEPTH CITY is a one-time purchase with no ads and no in-app purchases, and it plays fully offline. You can share your city with friends using a City ID.",
   },
   {
     q: "What else is in the game?",
@@ -403,3 +422,36 @@ export const faq: { q: string; a: string }[] = [
     a: "DEPTH CITY is made by Shainal Badusha, a solo developer and IT engineer, at HIZARC Games in Kozhikode (Calicut), Kerala, India. It is built in Unity.",
   },
 ];
+
+/**
+ * The Reviewer & Creator Guide: a 4-page PDF for reviewers, streamers and press, one file per language in public/guide/.
+ * /guide/ lets visitors pick a language; /guide/<code>/ starts the download as soon as it opens (the links to share).
+ * When the PDFs change, `node scripts/sync-guides.mjs` copies them in from the game's Store/Influencer Kit folder.
+ */
+export const guide = {
+  title: "Reviewer & Creator Guide",
+  blurb:
+    "Everything a reviewer or creator needs in four pages: how the city grows, the army, air force and missiles, the Mayor's life, and what to show in your first 30 minutes.",
+  languages: [
+    {
+      code: "en", name: "English", native: "English", dir: "ltr", title: "Reviewer & Creator Guide",
+      file: "/guide/depth-city-reviewer-guide-en.pdf", saveAs: "DEPTH CITY - Reviewer Guide - EN.pdf",
+      starting: "Your download is starting…", button: "Download PDF", hint: "Download didn’t start? Tap the button.", open: "Open the PDF",
+    },
+    {
+      code: "ml", name: "Malayalam", native: "മലയാളം", dir: "ltr", title: "റിവ്യൂവർ ഗൈഡ്",
+      file: "/guide/depth-city-reviewer-guide-ml.pdf", saveAs: "DEPTH CITY - Reviewer Guide - ML.pdf",
+      starting: "ഡൗൺലോഡ് തുടങ്ങുന്നു…", button: "PDF ഡൗൺലോഡ് ചെയ്യുക", hint: "ഡൗൺലോഡ് തുടങ്ങിയില്ലെങ്കിൽ ബട്ടൺ ടാപ്പ് ചെയ്യുക.", open: "PDF തുറക്കുക",
+    },
+    {
+      code: "hi", name: "Hindi", native: "हिन्दी", dir: "ltr", title: "रिव्यूअर गाइड",
+      file: "/guide/depth-city-reviewer-guide-hi.pdf", saveAs: "DEPTH CITY - Reviewer Guide - HI.pdf",
+      starting: "आपका डाउनलोड शुरू हो रहा है…", button: "PDF डाउनलोड करें", hint: "डाउनलोड शुरू नहीं हुआ? बटन पर टैप करें।", open: "PDF खोलें",
+    },
+    {
+      code: "ar", name: "Arabic", native: "العربية", dir: "rtl", title: "دليل المراجعين",
+      file: "/guide/depth-city-reviewer-guide-ar.pdf", saveAs: "DEPTH CITY - Reviewer Guide - AR.pdf",
+      starting: "جارٍ بدء التنزيل…", button: "تنزيل ملف PDF", hint: "لم يبدأ التنزيل؟ اضغط على الزر.", open: "فتح ملف PDF",
+    },
+  ],
+} as const;

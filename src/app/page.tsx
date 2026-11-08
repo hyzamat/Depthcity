@@ -22,6 +22,7 @@ import Gallery from "@/components/Gallery";
 import Stats from "@/components/Stats";
 import Creator from "@/components/Creator";
 import FaqSection from "@/components/FaqSection";
+import GuideSection from "@/components/GuideSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
@@ -64,6 +65,7 @@ export default function Home() {
       <Stats />
       <Creator />
       <FaqSection />
+      <GuideSection />
       <ContactSection />
       <Footer />
     </main>
